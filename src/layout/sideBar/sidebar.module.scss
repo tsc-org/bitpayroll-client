@@ -1,0 +1,71 @@
+$paddingX: 34px;
+
+.sidebar_container {
+    flex: 0 0 auto;
+    width: 289px;
+    height: 100%;
+    background-color: white;
+    & header, .org_info {
+        text-align: center;
+        margin: 0 auto;
+        padding-inline: $paddingX;
+        padding-bottom: 24px;
+        border-bottom: 1px solid var(--chakra-colors-grey-100);
+    }
+
+    & header {
+        padding-top: 47px;
+    }
+
+    .org_info {
+        padding-top: 40px;
+        .img_container {
+            margin: 0 auto;
+            width: 70px;
+            height: 70px;
+            border: 4px solid white;
+            border-radius: 50%;
+            box-shadow: 0px 5px 6px rgba(127, 145, 168, 0.32);
+            background-image: url(../../assets/images/testImg.png);
+            background-size: cover;
+        }
+    }
+
+    .profile_cta {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .nav_links {
+        padding-inline: $paddingX;
+        ul {
+            display: flex;
+            text-decoration: none;
+            list-style: none;
+            flex-direction: column;
+            gap: 32px;
+        }
+        li {
+            div {
+                display: flex;
+                gap: 20px;
+                p {
+                    font-size: 14px;
+                }
+            }
+            .activeLink {
+                img {
+                    color: var(--chakra-colors-orange-200);
+                    fill: var(--chakra-colors-orange-200);
+                }
+                p {
+                    color: var(--chakra-colors-orange-200);
+                }
+
+            }
+        }
+        
+    }
+}
+
+

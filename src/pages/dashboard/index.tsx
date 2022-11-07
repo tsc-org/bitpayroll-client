@@ -7,8 +7,8 @@ const Dashboard = () => {
     <>
         <Header header="Dashboard" />
         <MainPage>
-            Dashboard
-            Example of a customized chakra button
+            <p>Dashboard</p>
+            <p>Example of a customized chakra button</p>
             <Button variant={'primary'}>Continue</Button>
         </MainPage>
     </>

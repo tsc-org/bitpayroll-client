@@ -1,4 +1,3 @@
-import { Button } from '@chakra-ui/react'
 import React from 'react'
 import { Outlet } from 'react-router-dom'
 import styles from './layout.module.scss'

@@ -1,6 +1,4 @@
-import React from "react";
-import { Navigate, Outlet, Route, Routes, useLocation } from "react-router-dom";
-import BasePage from "../BasePage";
+import { Navigate, Outlet, useLocation } from "react-router-dom";
 import Layout from "../layout";
 import useAuth from "../hooks/useAuth";
 

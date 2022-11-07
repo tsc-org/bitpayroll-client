@@ -1,10 +1,4 @@
-#root {
-  max-width: 1024px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
-}
-
-img{
-  width: 100%;
+:root {
+    --main-page-paddingX: 2rem;
+    --main-page-paddingY: 2rem;
 }

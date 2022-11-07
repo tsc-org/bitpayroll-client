@@ -1,18 +1,17 @@
-import {BrowserRouter, Route, Routes } from 'react-router-dom'
+import { ChakraProvider } from '@chakra-ui/react'
 import './App.css'
-import Home from './pages/Home'
-import Wip from './pages/Wip'
-
+import { AuthContextProvider } from './context/authContext'
+import BaseRoutes from './Routes'
+import theme from './chakra/chakra-theme'
 
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-          <Route index element={<Home />} />
-          <Route path="work-in-progress" element={<Wip />} />
-      </Routes>
-    </BrowserRouter>
+    <ChakraProvider theme={theme}>
+      <AuthContextProvider>
+        <BaseRoutes />
+      </AuthContextProvider>
+    </ChakraProvider>
   )
 }
 

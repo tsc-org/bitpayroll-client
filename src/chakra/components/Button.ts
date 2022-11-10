@@ -29,10 +29,17 @@ const Button = defineStyleConfig({
         }
     },
     variants: {
-        primary: {
+        primary: () => ({
             color: '#fff',
-            bgColor: 'orange.200'
-        },
+            bgColor: 'orange.200',
+            _hover: {
+                bgColor: 'orange.250',
+            },
+            _active: {
+                bgColor: 'orange.275',
+            }
+            
+        }),
         profileIcon: {
             color: 'grey.300',
             fontSize: '24px',

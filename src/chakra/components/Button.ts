@@ -1,4 +1,4 @@
-import { defineStyleConfig } from "@chakra-ui/react";
+import { border, defineStyleConfig } from "@chakra-ui/react";
 
 const Button = defineStyleConfig({
     baseStyle: {
@@ -40,6 +40,12 @@ const Button = defineStyleConfig({
             borderColor: 'grey.100',
             borderRadius: '3px',
             fontWeight: "800",
+        },
+        outlined:{
+            color: "##2e2e2e",
+            bgColor: "transparent",
+            border: '0.5px solid'
+
         }
     },
     defaultProps: {

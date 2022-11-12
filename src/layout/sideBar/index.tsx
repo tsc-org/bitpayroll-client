@@ -12,6 +12,8 @@ import walletIcon from "../../assets/icons/walletIcon.svg"
 import bitcoinIcon from "../../assets/icons/bitcoinIcon.svg"
 import rcodeIcon from "../../assets/icons/123Icon.svg"
 import changeCircleIcon from "../../assets/icons/changeCircleIcon.svg"
+import { storageService } from '../../auth/storageService'
+import useAuth from '../../hooks/useAuth'
 // import editIcon from "../../assets/icons/editIcon.svg"
 
 const links = [
@@ -25,10 +27,16 @@ const links = [
 
 
 const SideBar = () => {
+    const { clearAuth } = useAuth()
     const [isSBOpenMobile, setIsSBOpenMobile] = useState(false)
     const toggleSideBar = () => {
         setIsSBOpenMobile(prev => !prev)
     }
+
+    const logout = () => {
+        clearAuth()
+    }
+
     return (
         <>
             <Box position={'absolute'} right='0' top='0' mt={14} mr={10} display={['block', 'block', 'none']} >
@@ -51,7 +59,7 @@ const SideBar = () => {
                         <IconButton size='icon' variant={'profileIcon'} icon={<MdOutlineEdit />} aria-label='edit' />
                         <IconButton size='icon' variant={'profileIcon'} icon={<IoSettingsOutline />} aria-label='settings' />
                         <IconButton size='icon' variant={'profileIcon'} icon={<MdOutlineGroupAdd />} aria-label='add' />
-                        <IconButton size='icon' variant={'profileIcon'} icon={<MdLogout />} aria-label='logout' />
+                        <IconButton size='icon' onClick={logout} variant={'profileIcon'} icon={<MdLogout />} aria-label='logout' />
                     </div>
                 </div>
                 <div className={styles.nav_links}>

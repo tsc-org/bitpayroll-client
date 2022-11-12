@@ -17,8 +17,12 @@ const Home = () => {
                 <p>Our payroll platform is designed to help organisations pay employees in bitcoin with ease.</p>
                 <div className={styles.buttons}>
                     <ButtonGroup gap='4'>
-                        <Button >Create Account</Button>
-                        <Button variant='outlined'>Login</Button>
+                        <Link to="/sign-up">
+                            <Button >Create Account</Button>
+                        </Link>
+                        <Link to="/login">
+                            <Button variant='outlined'>Login</Button>
+                        </Link>
                     </ButtonGroup>
                 </div>
             </div>

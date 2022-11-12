@@ -17,6 +17,8 @@ import { Link, Navigate, useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 
 export interface AuthFormProps {
+    state: Data;
+    setState: React.Dispatch<React.SetStateAction<Data>>;
   submitHandler: (x: Data) => void;
   loading: boolean;
   error: {};
@@ -33,10 +35,7 @@ export interface AuthFormProps {
 }
 
 export interface Data {
-  email: string;
-  password: string;
-  confirmPassword: string;
-  [key: string]: string;
+  [key: string]: string | number;
 }
 
 export interface inputOption {
@@ -52,6 +51,7 @@ interface PasswordVisibility {
 }
 
 const Form: FunctionComponent<AuthFormProps> = ({
+    state, setState,
   submitHandler,
   loading,
   error,
@@ -61,11 +61,7 @@ const Form: FunctionComponent<AuthFormProps> = ({
   signUp,
   forgotPassCheck,
 }) => {
-  const [data, setData] = useState<Data>({
-    email: "",
-    password: "",
-    confirmPassword: "",
-  });
+//   const [data, setData] = useState<Data>(initialState || {});
 
   const [pageSwitchValue, setPageSwitchValue] = useState(0);
 
@@ -79,16 +75,16 @@ const Form: FunctionComponent<AuthFormProps> = ({
   ): void => {
     let name = e.target.name;
     let value = e.target.value;
-    setData((prev) => ({ ...prev, [name]: value }));
+    setState((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    submitHandler(data);
+    submitHandler(state);
   };
 
-  const togglePasswordVisibility = (idx: string) => {
-    setPasswordVisibility((prev) => ({ ...prev, [idx]: !prev[idx] ?? true }));
+  const togglePasswordVisibility = (name: string) => {
+    setPasswordVisibility((prev) => ({ ...prev, [name]: !prev[name] ?? true}));
   };
 
   if (auth.auth) <Navigate to="/dashboard" />;
@@ -105,7 +101,7 @@ const Form: FunctionComponent<AuthFormProps> = ({
                     key={idx}
                     name={inputOption.name}
                     placeholder={inputOption.placeholder}
-                    value={data[inputOption.name]}
+                    value={state[inputOption.name]}
                     onChange={handleChange}
                     size="lg"
                     border="0.5px solid"
@@ -119,10 +115,10 @@ const Form: FunctionComponent<AuthFormProps> = ({
                   <InputGroup key={idx} size="lg">
                     <Input
                       fontSize="sm"
-                      name="password"
+                      name={inputOption.name}
                       placeholder={inputOption.placeholder}
-                      type={passwordVisibility ? "text" : "password"}
-                      value={data.password}
+                      type={passwordVisibility[inputOption.name] ? "text" : "password"}
+                      value={state[inputOption.name]}
                       onChange={handleChange}
                       border="0.5px solid"
                       borderColor="grey.100"
@@ -133,13 +129,13 @@ const Form: FunctionComponent<AuthFormProps> = ({
                         children={
                           <IconButton
                             aria-label="show/hide password"
-                            icon={passwordVisibility ? <FiEyeOff /> : <FiEye />}
+                            icon={passwordVisibility[inputOption.name] ? <FiEyeOff /> : <FiEye />}
                             size="sm"
                             fontSize="20px"
                             height={"30px"}
                             variant={"flat"}
                             color="grey.300"
-                            onClick={() => togglePasswordVisibility(`${idx}`)}
+                            onClick={() => togglePasswordVisibility(inputOption.name)}
                           />
                         }
                       />

@@ -26,6 +26,12 @@ const Button = defineStyleConfig({
             px: 6,
             py: 4,
             width: 'full'
+        },
+        "no-size": {
+            width: "0px",
+            height: "0px",
+            p: 0,
+            m: 0,
         }
     },
     variants: {
@@ -34,6 +40,9 @@ const Button = defineStyleConfig({
             bgColor: 'orange.200',
             _hover: {
                 bgColor: 'orange.250',
+                _disabled: {
+                    bgColor: 'orange.200'
+                }
             },
             _active: {
                 bgColor: 'orange.275',
@@ -53,6 +62,25 @@ const Button = defineStyleConfig({
             bgColor: "transparent",
             border: '0.5px solid'
 
+        },
+        "page-switch-active": {
+            fontSize: "12px",
+            bgColor: "orange.175",
+            color: "grey.375",
+            borderRadius: "100%",
+            width: "24px",
+            height: "24px",
+        },
+        "page-switch-inactive": {
+            fontSize: "12px",
+            bgColor: "grey.100",
+            color: "grey.175",
+            borderRadius: "100%",
+            width: "24px",
+            height: "24px",
+            _hover: {
+                transform: "scale(1.2)",
+            }
         }
     },
     defaultProps: {

@@ -1,4 +1,4 @@
-import { defineStyleConfig } from "@chakra-ui/react";
+import { border, defineStyleConfig } from "@chakra-ui/react";
 
 const Button = defineStyleConfig({
     baseStyle: {
@@ -15,7 +15,7 @@ const Button = defineStyleConfig({
         md: {
             fontSize: 'md',
             px: 4,
-            py: 0,
+            py: 2,
         },
         icon: {
             width: '46px',
@@ -26,13 +26,29 @@ const Button = defineStyleConfig({
             px: 6,
             py: 4,
             width: 'full'
+        },
+        "no-size": {
+            width: "0px",
+            height: "0px",
+            p: 0,
+            m: 0,
         }
     },
     variants: {
-        primary: {
+        primary: () => ({
             color: '#fff',
-            bgColor: 'orange.200'
-        },
+            bgColor: 'orange.200',
+            _hover: {
+                bgColor: 'orange.250',
+                _disabled: {
+                    bgColor: 'orange.200'
+                }
+            },
+            _active: {
+                bgColor: 'orange.275',
+            }
+            
+        }),
         profileIcon: {
             color: 'grey.300',
             fontSize: '24px',
@@ -40,6 +56,31 @@ const Button = defineStyleConfig({
             borderColor: 'grey.100',
             borderRadius: '3px',
             fontWeight: "800",
+        },
+        outlined:{
+            color: "##2e2e2e",
+            bgColor: "transparent",
+            border: '0.5px solid'
+
+        },
+        "page-switch-active": {
+            fontSize: "12px",
+            bgColor: "orange.175",
+            color: "grey.375",
+            borderRadius: "100%",
+            width: "24px",
+            height: "24px",
+        },
+        "page-switch-inactive": {
+            fontSize: "12px",
+            bgColor: "grey.100",
+            color: "grey.175",
+            borderRadius: "100%",
+            width: "24px",
+            height: "24px",
+            _hover: {
+                transform: "scale(1.2)",
+            }
         }
     },
     defaultProps: {

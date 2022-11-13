@@ -1,0 +1,30 @@
+
+.page_container {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+
+    .extended_section {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        width: 200%;
+        transition: all 200ms ease-in-out;
+        .page_one {
+            height: auto;
+        }
+
+        &_two {
+            transform: translateX(-50%);
+            .page_two {
+                height: auto;
+            }
+        }
+    }
+
+    .page_one, .page_two {
+        flex: 0 1 50%;
+        padding: 2px;
+        height: 0;
+    }
+}

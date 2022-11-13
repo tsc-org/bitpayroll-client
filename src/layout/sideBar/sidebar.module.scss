@@ -1,10 +1,42 @@
 $paddingX: 34px;
+$side-bar-width: 289px;
+
+.opaque_background {
+
+    &_hidden {
+        display: none;
+    }
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--chakra-colors-grey-200);
+    opacity: 0.5;
+    z-index: 1;
+    @media screen and (min-width: "768px") {
+        display: none;
+    }
+}
 
 .sidebar_container {
-    flex: 0 0 auto;
-    width: 289px;
+
+    &_hidden {
+        display: none;
+
+        @media screen and (min-width: "768px") {
+            flex: 0 0 auto;
+            position: relative;
+            display: block;
+        }
+    }
+    @media screen and (min-width: "768px") {
+        flex: 0 0 auto;
+        position: relative;
+    }
+    position: fixed;
+    width: $side-bar-width;
     height: 100%;
     background-color: white;
+    z-index: 2;
     & header, .org_info {
         text-align: center;
         margin: 0 auto;

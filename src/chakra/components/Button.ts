@@ -15,7 +15,7 @@ const Button = defineStyleConfig({
         md: {
             fontSize: 'md',
             px: 4,
-            py: 0,
+            py: 2,
         },
         icon: {
             width: '46px',

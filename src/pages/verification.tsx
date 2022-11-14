@@ -13,7 +13,7 @@ const Verification = () => {
         </Stack>
         <Button size="full">
             <Link to="/dashboard">
-                Go to Dashboard
+              Go to Dashboard
             </Link>
         </Button>
       </Container>

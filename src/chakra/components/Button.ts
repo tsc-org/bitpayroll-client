@@ -7,6 +7,10 @@ const Button = defineStyleConfig({
         height: 'auto !important',
     },
     sizes: {
+        xs: {
+            px: 2,
+            py: 1,
+        },
         sm: {
             fontSize: 'sm',
             px: 4,

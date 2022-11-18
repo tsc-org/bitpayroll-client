@@ -13,7 +13,7 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import axios from "../../api/axios";
 import endpoints from "../../api/endpoints";
 import Form, { Data, inputOption } from "../../components/accountForm/Form";
@@ -37,6 +37,9 @@ const SignIn = () => {
   const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
+  const location = useLocation()
+  const from = location.state?.from?.pathname || "/dashboard";
+
   const { auth, onLogin, clearAuth } = useAuth();
   const toast = useToast()
 
@@ -67,7 +70,7 @@ const SignIn = () => {
         };
         onLogin(auth)
         setTimeout(() => {
-          navigate("/dashboard");
+          navigate(from, {replace: true});
         }, 2000);
       })
       .catch((err) => {
@@ -84,7 +87,7 @@ const SignIn = () => {
   };
 
   if (auth?.auth?.auth) {
-    return <Navigate to="/dashboard" />
+    return <Navigate to={from} />
   }
 
   return (

@@ -1,4 +1,3 @@
-import { Heading } from '@chakra-ui/react'
 import styles from './header.module.scss'
 import React from 'react'
 

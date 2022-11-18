@@ -9,10 +9,14 @@
 
     display: flex;
 
-    .main_page {
+    .main_section {
         width: 100%;
-        padding-inline: 20px;
-        padding-top: 2rem;
+        padding-inline: var(--chakra-space-mainPageGapXsm);
+        padding-block: var(--chakra-space-mainPageGapYsm);
         flex: 1 1 auto;
+        @media screen and (min-width: 48rem) {
+            padding-inline: var(--chakra-space-mainPageGapX);
+            padding-top: var(--chakra-space-mainPageGapY);
+        }
     }
 }

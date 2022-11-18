@@ -1,5 +1,36 @@
+
 .banner {
     background-image: url("../../assets/images/pebbles-H.png");
     background-size: cover;
     background-position: center;
+    background-color: var(--chakra-colors-grey-200);
+    border-radius: 5px;
+    padding: var(--chakra-space-mainPageGapY);
+    display: flex;
+    gap: var(--chakra-space-mainPageGapY);
+    color: white;
 }
+
+.view_employees_box {
+    display: flex;
+    gap: 10px;
+    // padding-inline: 10px;
+    // --view_employee_box_bg: #f9f9f9;
+    // max-width: 100%;
+    min-height: calc(75px + 2 * 8px);
+    padding-block: 8px;
+    padding-inline: var(--chakra-space-mainPageGapX);
+    overflow: scroll;
+    background-color: #f9f9f9;
+    // border: 2px solid green;
+}
+
+.profile_circle {
+    // min-width: 75px !important;
+    // height: 75px;
+    background-color: var(--chakra-colors-grey-150);
+    flex: 0 0 75px;
+    height: 75px;
+    border-radius: 100%;
+}
+

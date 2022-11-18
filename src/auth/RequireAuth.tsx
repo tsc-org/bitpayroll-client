@@ -14,24 +14,24 @@ const RequireAuth = () => {
 
   const previouslyAuthenticated = useRef(false)
 
-  // if (!auth.auth?.auth) {
-  //   return <Navigate to={"/login"} state={{ from: location }} replace />;
-  // }
-  // if (auth.auth?.jwt && previouslyAuthenticated.current === false) {
-  //   axios.get(endpoints.REQUEST_VERIFICATION())
-  //     .then(res => {
-  //       if (!res.data.auth) {
-  //         clearAuth()
-  //       }
-  //       else {
-  //         previouslyAuthenticated.current = true
-  //       }
-  //     })
-  //     .catch(err => {
-  //       console.log("Verification Error", {err})
-  //       clearAuth()
-  //     })
-  // }
+  if (!auth.auth?.auth) {
+    return <Navigate to={"/login"} state={{ from: location }} replace />;
+  }
+  if (auth.auth?.jwt && previouslyAuthenticated.current === false) {
+    axios.get(endpoints.REQUEST_VERIFICATION())
+      .then(res => {
+        if (!res.data.auth) {
+          clearAuth()
+        }
+        else {
+          previouslyAuthenticated.current = true
+        }
+      })
+      .catch(err => {
+        console.log("Verification Error", {err})
+        clearAuth()
+      })
+  }
   return (
     <Layout>
       <Outlet />

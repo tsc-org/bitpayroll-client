@@ -1,4 +1,16 @@
 
+export interface MockData {
+    data: MockDataSingle[]
+}
+export interface MockDataSingle {
+    firstName: string;
+    lastName: string;
+    id: string | number;
+    address: string;
+}
+
+
+
 const data = [
     {firstName: "Erwin", lastName: "Yeager", id: 1, address: "3437schbn13uSHJ8978247" },
     {firstName: "Erwin", lastName: "Yeager", id: 2, address: "3437schbn13uSHJ8978247" },
@@ -18,7 +30,7 @@ const data = [
 ]
 
 export const getData = async() => {
-    const response: any = [...data]
+    const response: MockDataSingle[] = [...data]
     setTimeout(() => {
     }, 5000);
     return response

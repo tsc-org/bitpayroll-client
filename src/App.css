@@ -1,4 +1,7 @@
 :root {
     --main-page-paddingX: 2rem;
     --main-page-paddingY: 2rem;
+    --sideBarMobile-zIndex: 99;
+    --sideBarDesktop-zIndex: 1;
+    --header-zIndex: 1;
 }

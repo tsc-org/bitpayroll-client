@@ -11,9 +11,10 @@ $side-bar-width: 289px;
     height: 100vh;
     background-color: var(--chakra-colors-grey-200);
     opacity: 0.5;
-    z-index: 1;
+    z-index: var(--sideBarMobile-zIndex);
     @media screen and (min-width: "768px") {
         display: none;
+        z-index: var(--sideBarDesktop-zIndex);
     }
 }
 
@@ -31,12 +32,13 @@ $side-bar-width: 289px;
     @media screen and (min-width: "768px") {
         flex: 0 0 auto;
         position: relative;
+        z-index: var(--sideBarDesktop-zIndex);
     }
     position: fixed;
     width: $side-bar-width;
     height: 100%;
     background-color: white;
-    z-index: 2;
+    z-index: var(--sideBarMobile-zIndex);;
     & header, .org_info {
         text-align: center;
         margin: 0 auto;

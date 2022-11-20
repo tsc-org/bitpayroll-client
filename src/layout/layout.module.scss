@@ -4,7 +4,7 @@
     height: 100%;
     height: 100vh;
     max-height: 100vh;
-    width: 100vw;
+    max-width: 100vw;
     background-color: var(--chakra-colors-grey-100);
 
     display: flex;
@@ -13,7 +13,9 @@
         width: 100%;
         padding-inline: var(--chakra-space-mainPageGapXsm);
         padding-block: var(--chakra-space-mainPageGapYsm);
-        flex: 1 1 auto;
+        flex: 1 1 100%;
+        height: 100%;
+        overflow-y: scroll;
         @media screen and (min-width: 48rem) {
             padding-inline: var(--chakra-space-mainPageGapX);
             padding-top: var(--chakra-space-mainPageGapY);

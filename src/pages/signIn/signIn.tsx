@@ -87,7 +87,7 @@ const SignIn = () => {
   };
 
   if (auth?.auth?.auth) {
-    return <Navigate to={from} />
+    return <Navigate to={from || "/dashboard"} />
   }
 
   return (

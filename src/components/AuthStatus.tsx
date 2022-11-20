@@ -32,7 +32,7 @@ const AuthStatus = ({ isError, text, link, linkText }: Props) => {
         borderRadius="10px"
       >
         {isError ? (
-          <Icon as={MdCancel} />
+          <Icon as={MdCancel} fontSize="80px" color="red.500" />
         ) : (
           <Image src={CheckCircle} mx="auto" />
         )}

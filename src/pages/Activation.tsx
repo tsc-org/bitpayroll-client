@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react';
+import { Center } from '@chakra-ui/react';
+import { useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom'
 import axios from '../api/axios';
 import endpoints from '../api/endpoints';
@@ -21,10 +22,13 @@ const Activation = () => {
     error: null,
   })
 
+  const madeActivateCall = useRef(false)
+
   useEffect(() => {
     const activateAccount = () => {
       if (token) {
         storageService.removeData()
+        madeActivateCall.current = true
         axios.put(endpoints.ACTIVATE_ACCOUNT(token))
         .then(res => {
           console.log(res)
@@ -36,22 +40,25 @@ const Activation = () => {
         })
       }
     }
-    activateAccount()
+    if (madeActivateCall.current) return
+    setTimeout(() => {
+      activateAccount()
+    }, 1000);
   }, [])
 
   if (!token) {
-    return <div>Not found</div>
+    return <Center w="full" h="100vh">Not found</Center>
   }
   
   if (activation.loading) {
-    return <div>Please wait while we activate your account</div>
+    return <Center w="full" h="100vh">Please wait while we activate your account</Center>
   }
 
   return (
     <AuthStatus 
       isError={Boolean(!activation.loading && activation.error)}
       text={activation.error? activation.error : "Account Successfuly Activated"}
-      link="/login"
+      link={Boolean(!activation.loading && activation.error) ? undefined : "/login"}
       linkText='Login'
     />
   )

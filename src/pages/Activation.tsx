@@ -24,26 +24,25 @@ const Activation = () => {
 
   const madeActivateCall = useRef(false)
 
-  useEffect(() => {
-    const activateAccount = () => {
-      if (token) {
-        storageService.removeData()
-        madeActivateCall.current = true
-        axios.put(endpoints.ACTIVATE_ACCOUNT(token))
-        .then(res => {
-          console.log(res)
-          setActivation({data: res.data, loading: false, error: null})
-        })
-        .catch(err => {
-          let errMessage = err?.response?.data?.message || "Something went wrong"
-          setActivation({data: null, loading: false, error: errMessage})
-        })
-      }
-    }
+  const activateAccount = () => {
     if (madeActivateCall.current) return
-    setTimeout(() => {
-      activateAccount()
-    }, 1000);
+    if (token) {
+      madeActivateCall.current = true
+      storageService.removeData()
+      axios.put(endpoints.ACTIVATE_ACCOUNT(token))
+      .then(res => {
+        console.log(res)
+        setActivation({data: res.data, loading: false, error: null})
+      })
+      .catch(err => {
+        let errMessage = err?.response?.data?.message || "Something went wrong"
+        setActivation({data: null, loading: false, error: errMessage})
+      })
+    }
+  }
+
+  useEffect(() => {
+    activateAccount()
   }, [])
 
   if (!token) {

@@ -4,23 +4,24 @@ import useAuth from "../hooks/useAuth";
 import { useRef } from "react";
 import endpoints from "../api/endpoints";
 import axios from "../api/axios";
+import { replace } from "lodash";
 
 const RequireAuth = () => {
   const { auth, clearAuth } = useAuth();
   const location = useLocation();
   const navigate = useNavigate()
 
-  // const [loading, setLoading] = useState(true)
-
   const previouslyAuthenticated = useRef(false)
 
   if (!auth.auth?.auth) {
-    return <Navigate to={"/login"} state={{ from: location }} replace />;
+    navigate('/login', {state: {from: location}, replace: true})
+    // return <Navigate to={"/login"} state={{ from: location }} replace />;
   }
   if (auth.auth?.jwt) {
     if (previouslyAuthenticated.current) return
     if (!auth.isActive) {
-      return <Navigate to={"/login"} state={{ from: location }} replace />;
+      navigate('/login', {state: {from: location}, replace: true})
+      // return <Navigate to={"/login"} state={{ from: location }} replace />;
     }
     axios.get(endpoints.REQUEST_VERIFICATION())
       .then(res => {
@@ -37,9 +38,11 @@ const RequireAuth = () => {
       })
   }
   return (
-    <Layout>
-      <Outlet />
-    </Layout>
+    <>
+      <Layout>
+        <Outlet />
+      </Layout>
+    </>
   );
 };
 

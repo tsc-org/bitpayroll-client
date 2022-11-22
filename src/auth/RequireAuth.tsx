@@ -17,7 +17,11 @@ const RequireAuth = () => {
   if (!auth.auth?.auth) {
     return <Navigate to={"/login"} state={{ from: location }} replace />;
   }
-  if (auth.auth?.jwt && previouslyAuthenticated.current === false) {
+  if (auth.auth?.jwt) {
+    if (previouslyAuthenticated.current) return
+    if (!auth.isActive) {
+      return <Navigate to={"/login"} state={{ from: location }} replace />;
+    }
     axios.get(endpoints.REQUEST_VERIFICATION())
       .then(res => {
         if (!res.data.auth) {

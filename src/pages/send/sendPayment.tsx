@@ -77,6 +77,14 @@ const SendPayment = () => {
     setSelectList(prev => ({...prev, open: true}))
   }
 
+  const selectAll = () => {
+    if (!employeesData.loading && employeesData.data.length) {
+      let N = employeesData.data.length
+      let allCheckedIds = [...Array(N).keys()]
+      setCheckedIds(allCheckedIds)
+    }
+  }
+
   // FORM
   const paymentDescRef = useRef("")
   const initialValues: SubmitValues = {
@@ -160,7 +168,7 @@ const SendPayment = () => {
               Select employee
             </Button>
             <Button variant={"ghost"} ml="auto" size={{base: "sm", md:"md"}} color="orange.275" >View selected</Button>
-            <Button size={{base: "sm", md:"md"}}>Select all registered employee</Button>
+            <Button onClick={selectAll} size={{base: "sm", md:"md"}}>Select all registered employee</Button>
           </Flex>
 
           {/* Employees horizontal list */}

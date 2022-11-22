@@ -26,9 +26,9 @@ import useAuth from "../../hooks/useAuth";
 import { FiEyeOff, FiEye } from "react-icons/fi";
 import styles from "./signUp.module.scss";
 
-enum AccountType {
-  ORG = "organization",
-  EMP = "employee",
+export enum AccountType {
+  ORG = "ORGANISATION",
+  EMP = "EMPLOYEE",
 }
 
 interface PasswordVisType {

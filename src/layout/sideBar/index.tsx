@@ -39,7 +39,7 @@ const SideBar = () => {
 
     return (
         <>
-            <Box position={'absolute'} right='0' top='0' mt={7} mr={7} display={['block', 'block', 'none']} zIndex="1" >
+            <Box position={'absolute'} right='0' top='0' mt={7} mr={7} display={['block', 'block', 'none']} zIndex="2" >
                 <Button variant={'primary'} onClick={toggleSideBar} size="sm">Menu</Button>
             </Box>
             <div className={isSBOpenMobile ? styles.opaque_background : styles.opaque_background_hidden} onClick={toggleSideBar}></div>

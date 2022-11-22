@@ -20,6 +20,7 @@ import Form, { Data, inputOption } from "../../components/accountForm/Form";
 import useAuth from "../../hooks/useAuth";
 
 import { FiEyeOff, FiEye } from "react-icons/fi";
+import jwtDecode from "jwt-decode";
 
 const text = {
   heading: "Welcome back",
@@ -68,6 +69,17 @@ const SignIn = () => {
           auth: res.data?.auth || false,
           jwt: res.data?.jwt || null,
         };
+        const jwtData: any = jwtDecode(res.data.jwt)
+        if (!jwtData.isActive) {
+          toast({
+            title: 'Unable to sign in',
+            description: "Account has not been activated",
+            status: 'error',
+            duration: 6000,
+            isClosable: true,
+          })
+          return
+        }
         onLogin(auth)
         setTimeout(() => {
           navigate(from, {replace: true});
@@ -87,7 +99,7 @@ const SignIn = () => {
   };
 
   if (auth?.auth?.auth) {
-    return <Navigate to={from} />
+    return <Navigate to={from || "/dashboard"} />
   }
 
   return (

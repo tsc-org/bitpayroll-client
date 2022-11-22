@@ -3,7 +3,7 @@ const REGISTER_EMPLOYEE = () => `auth/register-employee`
 const REGISTER_ORG = () => `auth/register-organisation`
 
 const REQUEST_VERIFICATION = () => `/verification`
-const ACTIVATE_ACCOUNT = (token : string) => `/auth/activate/?token=${token}`
+const ACTIVATE_ACCOUNT = (token : string) => `/auth/activate/${token}`
 
 export default {
     LOGIN,

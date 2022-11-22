@@ -17,8 +17,7 @@ const RequireAuth = () => {
     navigate('/login', {state: {from: location}, replace: true})
     // return <Navigate to={"/login"} state={{ from: location }} replace />;
   }
-  if (auth.auth?.jwt) {
-    if (previouslyAuthenticated.current) return
+  if (auth.auth?.jwt && !previouslyAuthenticated.current) {
     if (!auth.isActive) {
       navigate('/login', {state: {from: location}, replace: true})
       // return <Navigate to={"/login"} state={{ from: location }} replace />;
@@ -38,11 +37,9 @@ const RequireAuth = () => {
       })
   }
   return (
-    <>
-      <Layout>
-        <Outlet />
-      </Layout>
-    </>
+    <Layout>
+      <Outlet />
+    </Layout>
   );
 };
 

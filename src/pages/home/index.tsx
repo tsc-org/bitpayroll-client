@@ -8,19 +8,19 @@ import { Button, ButtonGroup, Container, Heading, Stack, Text } from '@chakra-ui
 const Home = () => {
     return (
         <div className={styles.landingPageBody}>
-            <Heading fontSize="32px" fontWeight="700" borderBottom="1px solid" borderColor="grey.100" textAlign="center" pt="5%" pb="12px" >
+            <Heading fontSize="32px" fontWeight="700" borderBottom="1px solid" borderColor="grey.100" textAlign="center" pt="2%" pb="12px" ml = "5%" mr = "5%" >
                 BitPayRoll
             </Heading>
-            <Container maxW="978px" mt="8vh" mb={10} centerContent textAlign="center" px={10}>
+            <Container maxW="978px" mt="3vh" mb={10} centerContent textAlign="center" px={10}>
                 <Stack spacing={2}>
-                    <Heading fontSize={['24px','32px','48px', '64px']} fontWeight="700" letterSpacing="4px" lineHeight="150%" >
+                    <Heading fontSize={['24px','32px','48px', '64px']} fontWeight="700" letterSpacing="4px" lineHeight="120%" >
                         Pay your employees in bitcoin with ease
                     </Heading>
-                    <Text fontSize={{base: "14px", md: "24px"}} fontWeight="400">
+                    <Text fontSize={{base: "20px", md: "30px"}} fontWeight="400">
                         Our payroll platform is designed to help organisations pay employees in bitcoin with ease.
                     </Text>
                 </Stack>
-                <ButtonGroup gap='4' mt={12}>
+                <ButtonGroup gap='4' mt={5}>
                     <Link to="/sign-up">
                         <Button minW={{base: "100px", md: "150px"}} fontSize={{base: "12px", md: "16px"}}>Create Account</Button>
                     </Link>

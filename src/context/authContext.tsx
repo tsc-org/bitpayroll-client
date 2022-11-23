@@ -43,7 +43,6 @@ export const AuthContextProvider = ({children}: {children: React.ReactNode}) => 
 
   const decodeJwt = (jwt: string) => {
     const data = jwtDecode(jwt)
-    console.log(data)
     return data
   }
 

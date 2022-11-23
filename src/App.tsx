@@ -3,14 +3,21 @@ import './App.css'
 import { AuthContextProvider } from './context/authContext'
 import BaseRoutes from './Routes'
 import theme from './chakra/chakra-theme'
+import {
+  QueryClient,
+  QueryClientProvider,
+} from 'react-query'
 
+const queryClient = new QueryClient()
 
 function App() {
   return (
     <ChakraProvider theme={theme}>
-      <AuthContextProvider>
-        <BaseRoutes />
-      </AuthContextProvider>
+      <QueryClientProvider client={queryClient}>
+        <AuthContextProvider>
+          <BaseRoutes />
+        </AuthContextProvider>
+      </QueryClientProvider>
     </ChakraProvider>
   )
 }

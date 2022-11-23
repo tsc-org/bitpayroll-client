@@ -1,8 +1,21 @@
 .header_container {
     width: 100%;
     background-color: white;
-    font-size: 20px;
+    font-size: 16px;
     font-weight: 500;
-    padding-inline: var(--main-page-paddingX);
-    padding-block: var(--main-page-paddingY);
+    padding-inline: var(--chakra-space-mainPageGapXsm);
+    padding-block: var(--chakra-space-mainPageGapYsm);
+    position: sticky;
+    top: 0;
+    z-index: var(--header-zIndex);
+    // z-index: 1;
+    border-radius: 5px;
+
+    box-shadow: 0px calc(-5px - var(--chakra-space-mainPageGapX)) 0px var(--chakra-colors-grey-100);
+
+    @media screen and (min-width: 48rem) {
+        font-size: 20px;
+        padding-inline: var(--chakra-space-mainPageGapX);
+        padding-block: var(--chakra-space-mainPageGapY);
+    }
 }

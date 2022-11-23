@@ -1,0 +1,144 @@
+
+.banner {
+    background-image: url("../../assets/images/pebbles-H.png");
+    background-size: cover;
+    background-position: center;
+    background-color: var(--chakra-colors-grey-200);
+    border-radius: 5px;
+    padding: var(--chakra-space-mainPageGapY);
+    display: flex;
+    gap: var(--chakra-space-mainPageGapY);
+    color: white;
+}
+
+.view_employees_box {
+    display: flex;
+    gap: 10px;
+    // padding-inline: 10px;
+    // --view_employee_box_bg: #f9f9f9;
+    // max-width: 100%;
+    // height: calc(75px + 2 * 8px);
+    padding-block: 8px;
+    padding-inline: var(--chakra-space-mainPageGapX);
+    overflow: scroll;
+    background-color: #f9f9f9;
+
+    // border: 2px solid green;
+    // position: sticky;
+    // top: 4rem;
+    // z-index: 1;
+    // animation-name: slideIn;
+    // animation-duration: 0.3s;
+    // animation-fill-mode: forwards;
+    &_visible {
+        animation: 0.3s ease-in slideIn;
+    }
+    &_hidden {
+        display: none;
+    }
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateY(2rem);
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0rem);
+    }
+}
+// @keyframes slideOut {
+//     from {
+//         transform: translateY(0rem);
+//         opacity: 1;
+//     }
+//     to {
+//         opacity: 0;
+//         transform: translateY(1rem);
+//         padding: 0;
+//         visibility: hidden;
+//     }
+// }
+
+.profile_circle {
+    // min-width: 75px !important;
+    // height: 75px;
+    background-color: var(--chakra-colors-grey-150);
+    flex: 0 0 75px;
+    height: 75px;
+    border-radius: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.payment_section, .select_container {
+    &_visible {
+        animation: 0.3s ease-in slideIn;
+    }
+    &_hidden {
+        display: none !important;
+    }
+}
+
+.form_container {
+    flex: 1 1 100%;
+    order: 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--chakra-space-mainPageGapX);
+    @media screen and (min-width: 1024px) {
+        order: 0;
+    }
+}
+
+.payment_review {
+    flex: 0 0 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--chakra-space-mainPageGapXsm);
+    padding: var(--chakra-space-mainPageGapXsm);
+    background-color: var(--chakra-colors-grey-100);
+    border-radius: 5px;
+    color: var(--chakra-colors-grey-375);
+    order: 0;
+
+    @media screen and (min-width: 62rem) {
+        flex: 0 0 300px;
+        order: 1;
+    }
+    @media screen and (min-width: 80rem) {
+        flex: 0 0 400px;
+    }
+
+    h3 {
+        font-weight: 500;
+        font-size: 18px;
+    }
+
+    .flex_row_detail {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+
+        .detail_value {
+            flex: 0 0 auto;
+            display: grid;
+            place-items: center;
+            background-color: var(--chakra-colors-grey-175);
+            border-radius: 5px;
+            padding: 6px;
+            line-height: 1;
+            font-weight: 500;
+            font-size: 14px;
+            @media screen and (min-width: 768px) {
+                font-size: 18px;
+            }
+        }
+    }
+}
+

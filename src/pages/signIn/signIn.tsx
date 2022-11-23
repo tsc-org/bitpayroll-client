@@ -13,13 +13,14 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import axios from "../../api/axios";
 import endpoints from "../../api/endpoints";
 import Form, { Data, inputOption } from "../../components/accountForm/Form";
 import useAuth from "../../hooks/useAuth";
 
 import { FiEyeOff, FiEye } from "react-icons/fi";
+import jwtDecode from "jwt-decode";
 
 const text = {
   heading: "Welcome back",
@@ -37,6 +38,9 @@ const SignIn = () => {
   const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
+  const location = useLocation()
+  const from = location.state?.from?.pathname || "/dashboard";
+
   const { auth, onLogin, clearAuth } = useAuth();
   const toast = useToast()
 
@@ -65,9 +69,20 @@ const SignIn = () => {
           auth: res.data?.auth || false,
           jwt: res.data?.jwt || null,
         };
+        const jwtData: any = jwtDecode(res.data.jwt)
+        if (!jwtData.isActive) {
+          toast({
+            title: 'Unable to sign in',
+            description: "Account has not been activated",
+            status: 'error',
+            duration: 6000,
+            isClosable: true,
+          })
+          return
+        }
         onLogin(auth)
         setTimeout(() => {
-          navigate("/dashboard");
+          navigate(from, {replace: true});
         }, 2000);
       })
       .catch((err) => {
@@ -84,7 +99,7 @@ const SignIn = () => {
   };
 
   if (auth?.auth?.auth) {
-    return <Navigate to="/dashboard" />
+    return <Navigate to={from || "/dashboard"} />
   }
 
   return (

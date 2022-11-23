@@ -28,8 +28,16 @@ const colors = {
     }
 }
 
+const space = {
+    mainPageGapX: '24px',
+    mainPageGapY: '24px',
+    mainPageGapXsm: '16px',
+    mainPageGapYsm: '16px',
+}
+
 const theme = extendTheme({ 
     colors,
+    space,
     components: {
        Button, 
     }

@@ -19,7 +19,7 @@ import useAuth from '../../hooks/useAuth'
 const links = [
     { title: 'Dashboard', to: '/dashboard', icon: dashboardIcon },
     { title: 'Registered Employee', to: '/employees', icon: groupAddIcon },
-    { title: 'Create Wallet', to: '/create-wallet', icon: walletIcon },
+    { title: 'Wallet', to: '/wallet', icon: walletIcon },
     { title: 'Send Payment', to: '/send', icon: bitcoinIcon },
     { title: 'Generate R-Code', to: '/generate', icon: rcodeIcon },
     { title: 'Set Payday Circles', to: '/payday-circles', icon: changeCircleIcon },
@@ -39,8 +39,8 @@ const SideBar = () => {
 
     return (
         <>
-            <Box position={'absolute'} right='0' top='0' mt={14} mr={10} display={['block', 'block', 'none']} >
-                <Button variant={'primary'} onClick={toggleSideBar}>Menu</Button>
+            <Box position={'absolute'} right='0' top='0' mt={7} mr={7} display={['block', 'block', 'none']} zIndex="2" >
+                <Button variant={'primary'} onClick={toggleSideBar} size="sm">Menu</Button>
             </Box>
             <div className={isSBOpenMobile ? styles.opaque_background : styles.opaque_background_hidden} onClick={toggleSideBar}></div>
             <section className={`${isSBOpenMobile ? '' : styles.sidebar_container_hidden} ${styles.sidebar_container}`}>

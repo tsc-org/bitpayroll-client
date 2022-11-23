@@ -36,6 +36,7 @@ const RequireAuth = () => {
         clearAuth()
       })
   }
+  if (!auth.userId) return null
   return (
     <Layout>
       <Outlet />

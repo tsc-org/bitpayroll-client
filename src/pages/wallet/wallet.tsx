@@ -214,7 +214,7 @@ const Wallet = () => {
                 actionText="Add funds"
                 loading={walletsLoading}
               />)
-              : walletsData
+              : (walletsData && walletsData.length)
               ? walletsData.map((wallet, idx: number) => (
                   <WalletCard wallet={wallet} idx={idx} key={idx} />
                 ))

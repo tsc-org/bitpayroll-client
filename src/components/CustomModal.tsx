@@ -1,53 +1,73 @@
-import React from 'react'
+import React from "react";
 import {
-    Modal,
-    ModalOverlay,
-    ModalContent,
-    ModalHeader,
-    ModalFooter,
-    ModalBody,
-    Button
-  } from '@chakra-ui/react'
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  Button,
+  Flex,
+} from "@chakra-ui/react";
 
-  interface Props {
-    isOpen: boolean
-    handleClose: () => any;
-    onSuccess?: () => any
-    isError?: boolean
-    isSuccess?: boolean
-    isInfo?:boolean
-    heading?: "string"
-    description: "string"
-    actionText?: "string"
-    children: any
-  }
+interface Props {
+  data?: any;
+  isOpen: boolean;
+  handleClose: () => void;
+  onSuccess?: (data?: any) => void;
+  isError?: boolean;
+  isSuccess?: boolean;
+  isInfo?: boolean;
+  heading?: string;
+  hasAction?: boolean;
+  hasCancel?: boolean;
+  actionText?: string;
+  children: any;
+  closeOnOverlay?: boolean;
+  closeOnEsc?: boolean
+  customOverlay?: any;
+}
 
-const CustomModal: React.FC<Props> = ({ isOpen, handleClose,  heading,  actionText, children }) =>{
+const CustomModal: React.FC<Props> = ({
+  isOpen,
+  handleClose,
+  heading,
+  onSuccess,
+  actionText,
+  hasAction,
+  hasCancel,
+  closeOnOverlay,
+  closeOnEsc,
+  customOverlay,
+  children,
+}) => {
   return (
     <div>
-       <Modal isOpen={isOpen} onClose={handleClose}>
-        
-        <ModalOverlay />
+      <Modal isOpen={isOpen} onClose={handleClose} isCentered
+        closeOnOverlayClick={closeOnOverlay ?? true}
+        closeOnEsc={closeOnEsc ?? true}
+      >
+        {customOverlay ?? <ModalOverlay />}
 
         <ModalContent>
           <ModalHeader>{heading}</ModalHeader>
 
           <ModalBody>
-           {children}
+            {children}
+            <Flex direction="column" gap="mainPageGapXsm" my="mainPageGapXsm" >
+              {hasAction && <Button onClick={onSuccess}>{actionText}</Button>}
+              {hasCancel && (
+                <Button variant="ghost" onClick={handleClose}>
+                  Close
+                </Button>
+              )}
+            </Flex>
           </ModalBody>
-
-          <ModalFooter>
-            <Button colorScheme='blue' mr={3} onClick={handleClose}>
-              Close
-            </Button>
-            <Button variant='ghost'>{actionText}</Button>
-          </ModalFooter>
-
 
         </ModalContent>
       </Modal>
     </div>
-  )
-}
+  );
+};
 
-export default CustomModal
+export default CustomModal;

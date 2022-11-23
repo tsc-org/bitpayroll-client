@@ -19,7 +19,7 @@ import useAuth from '../../hooks/useAuth'
 const links = [
     { title: 'Dashboard', to: '/dashboard', icon: dashboardIcon },
     { title: 'Registered Employee', to: '/employees', icon: groupAddIcon },
-    { title: 'Create Wallet', to: '/create-wallet', icon: walletIcon },
+    { title: 'Wallet', to: '/wallet', icon: walletIcon },
     { title: 'Send Payment', to: '/send', icon: bitcoinIcon },
     { title: 'Generate R-Code', to: '/generate', icon: rcodeIcon },
     { title: 'Set Payday Circles', to: '/payday-circles', icon: changeCircleIcon },

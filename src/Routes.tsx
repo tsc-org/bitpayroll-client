@@ -10,6 +10,7 @@ import SendPayment from "./pages/send/sendPayment";
 import SignUp from "./pages/sign-up/signUp";
 import SignIn from "./pages/signIn/signIn";
 import Verification from "./pages/verification";
+import Wallet from "./pages/wallet/wallet";
 import Wip from "./pages/Wip";
 
 const BaseRoutes = () => {
@@ -25,6 +26,7 @@ const BaseRoutes = () => {
           <Route element={<RequireAuth />}>
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/send" element={<SendPayment />} />
+            <Route path="/wallet" element={<Wallet />} />
             <Route path="*" element={<NotFound />} />
           </Route>
         </Routes>

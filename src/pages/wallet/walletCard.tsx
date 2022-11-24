@@ -7,6 +7,7 @@ import endpoints from '../../api/endpoints';
 import { useQuery } from 'react-query';
 import { WalletType } from './wallet';
 import { btcFormat } from '../../helpers/btcFormat';
+import { WalletIcon } from '../../chakra/custom-chakra-icons';
 
 interface walletBalanceRespone {
     network: string,
@@ -27,7 +28,7 @@ const WalletCard = ({wallet, idx}: {wallet: WalletType, idx: number}) => {
   return (
     <Card
         imgSrc={pebbleBg}
-        icon={walletIcon}
+        icon={WalletIcon}
         bgColor="grey.200"
         title="Your wallet"
         value={btcFormat(walletBalance.data?.confirmed_balance)}

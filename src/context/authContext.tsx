@@ -49,7 +49,6 @@ export const AuthContextProvider = ({children}: {children: React.ReactNode}) => 
   const updateAuth = (data: any, auth: authType) => {
     let {orgName, id, email, firstName, lastName, role, isActive, ...others} = data
     let _formattedRole = Object.values(AccountType).findIndex(enumRole => enumRole === role as unknown as AccountType)
-    console.log(_formattedRole)
     let _updatedAuth = {
       orgName,
       userId: id ?? "",

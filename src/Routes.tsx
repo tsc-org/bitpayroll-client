@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import RequireAuth from "./auth/RequireAuth";
 import Activation from "./pages/Activation";
 import Dashboard from "./pages/dashboard";
+import Employees from "./pages/employees/Employees";
 import Home from "./pages/home";
 import NotFound from "./pages/notFound";
 import SendPayment from "./pages/send/sendPayment";
@@ -27,6 +28,8 @@ const BaseRoutes = () => {
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/send" element={<SendPayment />} />
             <Route path="/wallet" element={<Wallet />} />
+            <Route path="/employees" element={<Employees />} />
+
             <Route path="*" element={<NotFound />} />
           </Route>
         </Routes>

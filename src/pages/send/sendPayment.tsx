@@ -153,7 +153,7 @@ const SendPayment = () => {
           borderRadius="5px"
           maxW="100%"
           width="full"
-          h="100%"
+          flex="1 1 100%"
           p={0}
         >
           {/* Select Employee/All */}
@@ -250,9 +250,5 @@ export const EmployeeProfileBox = ({employeeIdx, data}: any) => {
         </Center>
     )
 }
-
-const colors = [
-
-]
 
 export default SendPayment;

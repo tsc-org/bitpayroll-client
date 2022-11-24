@@ -15,6 +15,7 @@ import { FaCopy } from "react-icons/fa";
 import CheckCircle from "../../assets/icons/check-circle.svg";
 import WalletCard from "./walletCard";
 import { useQuery } from "react-query";
+import { WalletIcon } from "../../chakra/custom-chakra-icons";
 
 export interface WalletType {
     address: string;
@@ -190,15 +191,14 @@ const Wallet = () => {
 
   return (
     <>
-      <Header header="Send payment" />
+      <Header header="Wallets" />
       <MainPage>
         <Container
           bgColor="white"
           borderRadius="5px"
           maxW="100%"
           width="full"
-          h="100%"
-          minH="100%"
+          flex="1 1 100%"
           p={"mainPageGapX"}
         >
           <Button onClick={createWallet}> Create Wallet</Button>
@@ -207,7 +207,7 @@ const Wallet = () => {
             {walletsLoading ? (
               <Card
                 imgSrc={pebbleBg}
-                icon={walletIcon}
+                icon={WalletIcon}
                 bgColor="grey.200"
                 title="Your wallet"
                 value="Placeholder"

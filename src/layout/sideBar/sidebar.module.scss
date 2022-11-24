@@ -77,9 +77,25 @@ $side-bar-width: 289px;
             text-decoration: none;
             list-style: none;
             flex-direction: column;
-            gap: 32px;
+            // gap: 32px;
         }
         li {
+            p, img{
+                transition: 0.1s ease-in;
+                transition-property: transform, font-weight;
+            }
+            &:hover {
+                p {
+                    font-weight: 600;
+                }
+                img {
+                    transform: scale(1.1);
+                }
+            }
+            a {
+                display: block;
+                padding-block: 0.8rem;
+            }
             div {
                 display: flex;
                 gap: 20px;
@@ -94,6 +110,7 @@ $side-bar-width: 289px;
                 }
                 p {
                     color: var(--chakra-colors-orange-200);
+                    font-weight: 600;
                 }
 
             }

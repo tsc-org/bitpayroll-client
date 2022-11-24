@@ -1,10 +1,19 @@
 import styles from './header.module.scss'
 import React from 'react'
 
-const Header = ({header}: {header: React.ReactNode}) => {
+interface HeaderProps {
+  header?: React.ReactNode;
+  children?: React.ReactNode;
+}
+
+const Header: React.FC<HeaderProps> = ({header, children}) => {
   return (
     <section className={styles.header_container}>
-        {header}
+      <div>
+        {header? header : null}
+        {children}
+      </div>
+      <div className={styles.hidden_right_space}></div>
     </section>
   )
 }

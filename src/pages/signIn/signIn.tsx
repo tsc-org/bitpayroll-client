@@ -64,7 +64,6 @@ const SignIn = () => {
     axios
       .post(endpoints.LOGIN(), data)
       .then((res) => {
-        console.log(res);
         const auth = {
           auth: res.data?.auth || false,
           jwt: res.data?.jwt || null,

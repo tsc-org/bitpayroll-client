@@ -60,6 +60,13 @@ const Button = defineStyleConfig({
             borderColor: 'grey.100',
             borderRadius: '3px',
             fontWeight: "800",
+            _hover: {
+                bgColor: "grey.150"
+            },
+            _active: {
+                bgColor: "grey.200",
+                color: "grey.100"
+            },
         },
         outlined:{
             color: "##2e2e2e",

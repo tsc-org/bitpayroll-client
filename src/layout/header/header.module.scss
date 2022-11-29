@@ -11,11 +11,28 @@
     // z-index: 1;
     border-radius: 5px;
 
+    display: flex;
+
     box-shadow: 0px calc(-5px - var(--chakra-space-mainPageGapX)) 0px var(--chakra-colors-grey-100);
+
+    .content {
+        flex: 1 1 100%;
+    }
+
+    .hidden_right_space {
+        flex: 0 0 75px;
+        height: 100%;
+        margin-left: auto;
+        // background-color: green;
+    }
 
     @media screen and (min-width: 48rem) {
         font-size: 20px;
         padding-inline: var(--chakra-space-mainPageGapX);
         padding-block: var(--chakra-space-mainPageGapY);
+
+        .hidden_right_space {
+            display: none;
+        }
     }
 }

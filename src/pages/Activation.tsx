@@ -5,21 +5,19 @@ import axios from '../api/axios';
 import endpoints from '../api/endpoints';
 import { storageService } from '../auth/storageService';
 import AuthStatus from '../components/AuthStatus';
-
-interface activationStateType {
-  loading: boolean;
-  data: {} | null;
-  error: null | string;
-}
+import { DataState } from '../types';
 
 const Activation = () => {
 
   const token = useParams().token;
 
-  const [activation, setActivation] = useState<activationStateType>({
+  const [activation, setActivation] = useState<DataState<{}>>({
     loading: true,
     data: null,
-    error: null,
+    error: {
+      state: false,
+      errMessage: "",
+    },
   })
 
   const madeActivateCall = useRef(false)
@@ -32,11 +30,11 @@ const Activation = () => {
       axios.put(endpoints.ACTIVATE_ACCOUNT(token))
       .then(res => {
         console.log(res)
-        setActivation({data: res.data, loading: false, error: null})
+        setActivation(prev => ({...prev, data: res.data, loading: false}))
       })
       .catch(err => {
         let errMessage = err?.response?.data?.message || "Something went wrong"
-        setActivation({data: null, loading: false, error: errMessage})
+        setActivation({data: null, loading: false, error: {state: true, errMessage}})
       })
     }
   }
@@ -56,7 +54,7 @@ const Activation = () => {
   return (
     <AuthStatus 
       isError={Boolean(!activation.loading && activation.error)}
-      text={activation.error? activation.error : "Account Successfuly Activated"}
+      text={activation.error.state? activation.error.errMessage : "Account Successfuly Activated"}
       link={Boolean(!activation.loading && activation.error) ? undefined : "/login"}
       linkText='Login'
     />

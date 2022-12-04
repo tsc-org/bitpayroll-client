@@ -7,6 +7,8 @@ import {
   InputGroup,
   InputLeftElement,
   InputRightElement,
+  Spinner,
+  Stack,
   Table,
   TableContainer,
   Tbody,
@@ -15,21 +17,52 @@ import {
   Tr,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
-import { MockDataSingle } from "../../helpers/mockData";
 import styles from "./CheckBoxList.module.scss";
 import { FaSearch } from "react-icons/fa"
+import { Employee } from "../../types";
+import { UseQueryResult } from "react-query";
+import BaseTable from "../Table/Table";
 
 interface Props {
-  employeesData: MockDataSingle[];
+  employees: UseQueryResult<Employee[], unknown>;
   toggleCheck: (e: React.ChangeEvent<HTMLInputElement>, idx: number) => void;
   selectList: {
     open: boolean;
   };
   checkedIds: number[];
   setSelectList: (x: any) => void;
+  clearSelection: () => void;
 }
 
-const CheckBoxList = ({ checkedIds, employeesData, toggleCheck, selectList, setSelectList }: Props) => {
+const CheckBoxList = ({ checkedIds, employees, toggleCheck, clearSelection, selectList, setSelectList }: Props) => {
+  
+  const CheckBoxTS = [
+    {
+      name: "name",
+      type: "text",
+      value: (row: Employee) => `${row?.firstName ?? 'N/A'} ${row?.lastName ?? 'N/A'}`,
+    },
+    {
+      name: "wallet",
+      type: "text",
+      value: (row: Employee) => row.wallet_address,
+    },
+    {
+      name: "salary",
+      type: "text",
+      value: (row: Employee) => row.salary ? `${row.salary}` : null,
+    },
+  ]
+
+  const onRenderCheckBox = (row: Employee, idx: number) => (
+    <Checkbox 
+      id={`checkedIds-${idx}`} 
+      colorScheme={"orange"} 
+      onChange={(e) => toggleCheck(e, idx)} 
+      isChecked={checkedIds.includes(Number(idx))}
+      />
+  )
+  
   if (!selectList.open) return null;
 
   return (
@@ -42,20 +75,30 @@ const CheckBoxList = ({ checkedIds, employeesData, toggleCheck, selectList, setS
                     zIndex="0"
                 />
                 <Input type="text" placeholder="search for employee" />
-                <InputRightElement width={"auto"} pr="10px" zIndex="0"
+                {/* <InputRightElement width={"auto"} pr="10px" zIndex="0"
                     children={
                         <Button size="sm">
                             Search
                         </Button>
                     }
-                />
+                /> */}
             </InputGroup>
         </Flex>
-        <Flex fontWeight="300" py={4} gap="10%" alignItems="center" >
-            <Text>Selected {checkedIds.length} out of {employeesData.length}</Text>
-            <Button size="sm" onClick={() => setSelectList({open: false})}>Done</Button>
+        <Flex fontWeight="300" py={4} gap={{base: 4, md: 8}} alignItems="center" flexWrap={"wrap"} >
+            <Text>Selected {checkedIds.length} out of {employees.isLoading? <Spinner/> : employees.isSuccess ? employees.data.length : "N/A"}</Text>
+            <Flex gap={4}>
+              <Button variant={"outline"} size="sm" onClick={clearSelection}>Clear</Button>
+              <Button size="sm" onClick={() => setSelectList({open: false})}>Done</Button>
+            </Flex>
         </Flex>
-        <TableContainer>
+        <BaseTable 
+          tableData={employees.isSuccess ? employees.data : []}
+          tableStructure={CheckBoxTS}
+          loading={employees.isLoading}
+          hasCheckBox
+          onRenderCheckBox={onRenderCheckBox}
+        />
+        {/* <TableContainer>
           <Table variant="striped">
             <Tbody>
               {employeesData.map((emp, idx: number) => (
@@ -69,36 +112,12 @@ const CheckBoxList = ({ checkedIds, employeesData, toggleCheck, selectList, setS
                         />
                     </Td>
                     <Td><label htmlFor={`checkedIds-${idx}`}>{emp?.firstName} {emp?.lastName}</label></Td>
-                    <Td><label htmlFor={`checkedIds-${idx}`}>{emp.address}</label></Td>
+                    <Td><label htmlFor={`checkedIds-${idx}`}>{emp.wallet_address}</label></Td>
                 </Tr>
-                // <div className={styles.checkbox_container} key={idx}>
-                //   <input
-                //     type="checkbox"
-                //     name="checkedIds"
-                //     id={`checkedIds-${idx}`}
-                //     onChange={(e) => toggleCheck(e, idx)}
-                //   />
-                //   <label htmlFor={`checkedIds-${idx}`}>
-                //     <p>
-                //       {emp?.firstName} {emp?.lastName}
-                //     </p>
-                //   </label>
-                //   {/* <Checkbox display="flex" flexDirection="row" onChange={(e) => toggleCheck(e, idx)}>
-                //             <Text flex={"0 0 100px"} >
-                //                 {emp?.firstName} {emp?.lastName}
-                //             </Text>
-                //             <Text flex={"0 0 100px"}>
-                //                 {emp.id}
-                //             </Text>
-                //             <Text flex={"0 0 100px"}>
-                //                 {emp.address}
-                //             </Text>
-                //         </Checkbox> */}
-                // </div>
               ))}
             </Tbody>
           </Table>
-        </TableContainer>
+        </TableContainer> */}
     </Box>
   );
 };

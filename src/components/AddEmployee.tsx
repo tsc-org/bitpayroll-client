@@ -11,19 +11,15 @@ import {
   Input,
   Box,
   InputGroup,
-  InputRightElement,
-  IconButton,
-  Tag,
-  TagLabel,
-  TagCloseButton,
   Stack,
   FormControl,
   FormLabel,
-  Container,
+  InputLeftAddon,
 } from "@chakra-ui/react";
 import { FaPlus } from "react-icons/fa"
 import axios from "../api/axios";
 import endpoints from "../api/endpoints";
+import { moneyValueFormat } from "../helpers/moneyFormat";
 
 interface Props {
   data?: any;
@@ -33,6 +29,15 @@ interface Props {
   inviteLoading: boolean;
 }
 
+const currency = "$";
+const getPureMoneyVal = (value: string)  => {
+  return value.replaceAll(",", "").replaceAll(currency, "");
+};
+const parseMoneyValue = (value: string) => {
+  let _pureValue = getPureMoneyVal(value);
+  return moneyValueFormat(_pureValue, currency);
+};
+
 const AddEmployee: React.FC<Props> = ({
   isOpen,
   handleClose,
@@ -41,6 +46,10 @@ const AddEmployee: React.FC<Props> = ({
 }) => {
 
     const [addedEmployees, setAddedEmployees] = useState([] as string[])
+    const [formData, setFormData] = useState({
+        email: "",
+        salary: ""
+    })
     const inputRef = useRef(null) as any
 
     const hasRendered = useRef(false)
@@ -73,10 +82,19 @@ const AddEmployee: React.FC<Props> = ({
 
     }, [inputRef, hasRendered])
 
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        let name = e.target.name
+        let value = e.target.value
+        setFormData(prev => ({...prev, [name]: value}))
+    }
+
     const handleSendInvite = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-        let email = inputRef?.current?.value
-        handleSubmit(email)
+        const data = {
+            email: formData.email,
+            salary: parseInt(getPureMoneyVal(formData.salary))
+        }
+        handleSubmit(data)
     }
 
     // useEffect(() => {
@@ -109,14 +127,38 @@ const AddEmployee: React.FC<Props> = ({
                             <FormLabel>Employee email</FormLabel>
                             <Input
                                 ref={inputRef}
-                                fontSize="sm"
+                                fontSize={{base: "sm", md: "md"}}
                                 name="email"
                                 placeholder="Enter employee email"
                                 type={"email"}
                                 border="0.5px solid"
                                 borderColor="grey.100"
+                                value={formData.email}
+                                onChange={handleChange}
                                 required
                             />
+                        </FormControl>
+                        <FormControl>
+                            <FormLabel>Employee salary</FormLabel>
+                            <InputGroup>
+                                <InputLeftAddon fontSize={{base: "12px", md: "14px"}} fontWeight="semibold" children="USD" />
+                                <Input
+                                    fontSize={{base: "sm", md: "md"}}
+                                    name="salary"
+                                    placeholder="Enter salary in USD"
+                                    type="text"
+                                    border="0.5px solid"
+                                    borderColor="grey.100"
+                                    value={formData.salary}
+                                    onChange={(e) => {
+                                        if (e.target?.value) {
+                                            e.target.value = parseMoneyValue(e.target?.value);
+                                            handleChange(e);
+                                          }
+                                    }}
+                                    required
+                                />
+                            </InputGroup>
                         </FormControl>
                     </Stack>
                     <Button type="submit" minW="50%" isLoading={inviteLoading} >

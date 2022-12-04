@@ -1,5 +1,6 @@
 import { extendTheme } from "@chakra-ui/react";
 import Button from "./components/Button";
+import Checkbox from "./components/Checkbox";
 
 const colors = {
     grey: {
@@ -40,6 +41,7 @@ const theme = extendTheme({
     space,
     components: {
        Button, 
+       Checkbox,
     }
 })
 

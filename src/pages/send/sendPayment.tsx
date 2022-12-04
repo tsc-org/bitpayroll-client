@@ -17,16 +17,15 @@ import styles from "./sendPayment.module.scss";
 // import pebblesBanner from "../../assets/images/pebbles-h-svg.svg"
 import CheckBoxList from "../../components/CheckBoxList/CheckBoxList";
 import React, { useEffect, useRef, useState } from "react";
-import { getData, MockDataSingle } from "../../helpers/mockData";
 import { IoMdArrowDropdown } from "react-icons/io";
 import { randomColor } from "../../helpers/randomColor";
 import { Field, FieldInputProps, FieldProps, Form, Formik, FormikFormProps } from "formik";
-
-interface EmployeesState {
-  loading: boolean;
-  data: MockDataSingle[];
-  error: boolean;
-}
+import { Employee } from "../../types";
+import useEmployees from "../../hooks/useEmployees";
+import axios from "../../api/axios";
+import endpoints from "../../api/endpoints";
+import useAuth from "../../hooks/useAuth";
+import customToast from "../../components/toasts";
 
 interface OrgState {
   loading: boolean;
@@ -43,11 +42,7 @@ interface SubmitValues {
 }
 
 const SendPayment = () => {
-  const [employeesData, setEmployeesData] = useState<EmployeesState>({
-    loading: true,
-    data: [],
-    error: false,
-  });
+  
   const [orgData, setOrgData] = useState<OrgState>({
     loading: true,
     data: {
@@ -56,11 +51,16 @@ const SendPayment = () => {
     } as OrgState["data"],
     error: false,
   });
+
   const [selectList, setSelectList] = useState({
     open: false,
   })
-
   const [checkedIds, setCheckedIds] = useState([] as number[])
+
+  const {employees} = useEmployees()
+
+  const {auth} = useAuth()
+
   const toggleCheck = (e: React.ChangeEvent<HTMLInputElement>, idx: number) : void => {
     const checked = e.target.checked
     if (checked) {
@@ -78,14 +78,19 @@ const SendPayment = () => {
   }
 
   const selectAll = () => {
-    if (!employeesData.loading && employeesData.data.length) {
-      let N = employeesData.data.length
+    if (employees.isSuccess) {
+      let N = employees.data.length
       let allCheckedIds = [...Array(N).keys()]
       setCheckedIds(allCheckedIds)
     }
   }
 
+  const clearSelection = () => {
+    setCheckedIds([])
+  }
+
   // FORM
+  const calculatedAmount = useRef(0)
   const paymentDescRef = useRef("")
   const initialValues: SubmitValues = {
     amount: 0,
@@ -110,20 +115,41 @@ const SendPayment = () => {
   }
 
   const onSendPayment = (values: SubmitValues) :void => {
-    console.log(values)
+
+    if (!employees.isSuccess || !checkedIds.length) return
+    const selectedEmployees = checkedIds.map((idx: number) => {
+      if (!employees.data[idx].id) return
+      return ({
+        employeeIds: employees.data[idx].id,
+        salary: employees.data[idx].salary
+      })
+    })
+    const body = {
+      employees: selectedEmployees,
+      amount: values.amount
+    }
+    console.log(body)
+    // axios.post(endpoints.SEND_PAYMENT(auth.userId), body)
+    // .then(res => customToast({isSuccess: true}))
+    // .catch(err => customToast({isSuccess: false, desc: err?.response?.data?.message || "Please try again later"}))
   }
 
   useEffect(() => {
-    const getEmployeeData = async () => {
-      try {
-          const data = await getData();
-          setEmployeesData(prev => ({...prev, loading: false, data}));
-      } catch {
-          setEmployeesData(prev => ({...prev, loading: false, error: true}));
+    const sum = checkedIds.reduce((a,b) => {
+      const amount = (idx: number) => {
+        let data = employees.isSuccess ? employees.data[idx] : null
+        if (data) {
+          if (data?.salary) return data.salary
+        }
+        return 0
       }
-    };
-    getEmployeeData();
-  }, []);
+      return (a + amount(b))
+    }, 0)
+
+    calculatedAmount.current = sum
+  
+  }, [checkedIds])
+  
 
   return (
     <>
@@ -174,7 +200,7 @@ const SendPayment = () => {
           {/* Employees horizontal list */}
           <div className={`${styles.view_employees_box} ${checkedIds.length ? styles.view_employees_box_visible : styles.view_employees_box_hidden }`}>
             {checkedIds.map((idx) => (
-              <EmployeeProfileBox key={idx} employeeIdx={idx} data={employeesData.data} />
+              <EmployeeProfileBox key={idx} employeeIdx={idx} data={employees.isSuccess ? employees.data : []} />
             ))}
           </div>
 
@@ -192,8 +218,8 @@ const SendPayment = () => {
                 >
                   <Field name="amount" validate={validateAmount}>
                     {(props: FieldProps) => (
-                      <FormControl isInvalid={(props.form.errors.amount && props.form.touched.amount) ? true : false}>
-                        <Input {...props.field} placeholder='Enter amount to send' type="number" />
+                      <FormControl isInvalid={false}>
+                        <Input {...props.field} value={calculatedAmount.current} disabled placeholder='Enter amount to send' type="number" />
                         <FormErrorMessage>{`${props.form.errors?.amount}`}</FormErrorMessage>
                       </FormControl>
                     )}
@@ -235,7 +261,7 @@ const SendPayment = () => {
           <Box p={{base:"mainPageGapXsm", md: "mainPageGapX"}}
             className={`${styles.select_container} ${selectList.open ? styles.select_container_visible : styles.select_container_hidden }`} 
           >
-            <CheckBoxList checkedIds={checkedIds} employeesData={employeesData.data} toggleCheck={toggleCheck} selectList={selectList} setSelectList={setSelectList} />
+            <CheckBoxList checkedIds={checkedIds} employees={employees} toggleCheck={toggleCheck} clearSelection={clearSelection} selectList={selectList} setSelectList={setSelectList} />
           </Box>
         </Container>
       </MainPage>
@@ -243,12 +269,23 @@ const SendPayment = () => {
   );
 };
 
-export const EmployeeProfileBox = ({employeeIdx, data}: any) => {
-    return (
-        <Center flex={"0 0 75px"} h="75px" bgColor="grey.150" borderRadius="100%" >
-          <Text fontWeight={700} fontSize={{base: "16px", md: "28px"}} >{data[employeeIdx]?.firstName[0]} {data[employeeIdx]?.lastName[0]}</Text>
-        </Center>
-    )
+export const EmployeeProfileBox = ({employeeIdx, data}: {employeeIdx: number, data: Employee[]}) => {
+  const fnInitial = getInitial(data[employeeIdx]?.firstName)
+  const lnInitial = getInitial(data[employeeIdx]?.lastName)
+
+  function getInitial(value: Employee["firstName"]) {
+    if (typeof(value) === "string") {
+      if (value.length === 0) return "-"
+      return value[0]
+    } else {
+      return "-"
+    }
+  }
+  return (
+    <Center flex={"0 0 75px"} h="75px" bgColor="grey.150" borderRadius="100%" >
+      <Text fontWeight={700} fontSize={{base: "16px", md: "28px"}} >{fnInitial} {lnInitial}</Text>
+    </Center>
+  )
 }
 
 export default SendPayment;

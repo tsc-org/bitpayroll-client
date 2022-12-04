@@ -17,7 +17,6 @@ import styles from "./sendPayment.module.scss";
 // import pebblesBanner from "../../assets/images/pebbles-h-svg.svg"
 import CheckBoxList from "../../components/CheckBoxList/CheckBoxList";
 import React, { useEffect, useRef, useState } from "react";
-import { getData } from "../../helpers/mockData";
 import { IoMdArrowDropdown } from "react-icons/io";
 import { randomColor } from "../../helpers/randomColor";
 import { Field, FieldInputProps, FieldProps, Form, Formik, FormikFormProps } from "formik";

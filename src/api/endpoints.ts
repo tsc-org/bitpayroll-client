@@ -11,6 +11,10 @@ const GET_ALL_EMPLOYEES = (id: string) => `org/list-employee/${id}`
 const GET_WALLET_BALANCE = (addr: string) => `https://chain.so/api/v2/get_address_balance/BTCTEST/${addr}`
 
 const SEND_INVITE = (id: string) => `/org/invite-employee/${id}`
+const SEND_PAYMENT = (id: string) => `/org/send-payment/${id}`
+
+const CREATE_EMPLOYEE_WITH_INVITE = (inviteCode: string) => `/emp/update-details/${inviteCode}`
+
 
 
 export default {
@@ -24,4 +28,6 @@ export default {
     GET_ALL_ORG_WALLETS,
     GET_WALLET_BALANCE,
     SEND_INVITE,
+    CREATE_EMPLOYEE_WITH_INVITE,
+    SEND_PAYMENT,
 }

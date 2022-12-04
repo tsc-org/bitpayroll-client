@@ -6,6 +6,7 @@ import Activation from "./pages/Activation";
 import Dashboard from "./pages/dashboard";
 import Employees from "./pages/employees/Employees";
 import Home from "./pages/home";
+import Invite from "./pages/invite";
 import NotFound from "./pages/notFound";
 import SendPayment from "./pages/send/sendPayment";
 import SignUp from "./pages/sign-up/signUp";
@@ -22,6 +23,7 @@ const BaseRoutes = () => {
           <Route path="/login" element={<SignIn />} />
           <Route path="/sign-up" element={<SignUp />} />
           <Route path="/verification" element={<Verification />} />
+          <Route path="/invite/:inviteCode" element={<Invite />} />
           <Route path="/activate/:token" element={<Activation />} />
           <Route path="work-in-progress" element={<Wip />} />
           <Route element={<RequireAuth />}>

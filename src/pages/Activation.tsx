@@ -29,7 +29,6 @@ const Activation = () => {
       storageService.removeData()
       axios.put(endpoints.ACTIVATE_ACCOUNT(token))
       .then(res => {
-        console.log(res)
         setActivation(prev => ({...prev, data: res.data, loading: false}))
       })
       .catch(err => {

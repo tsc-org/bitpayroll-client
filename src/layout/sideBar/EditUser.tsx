@@ -48,7 +48,6 @@ const EditUser = ({open, close, data}: {open: boolean, close: () => void, data: 
       const updateMutation = useMutation(updateUser)
 
     const onSubmitUpdateUser = (values: {orgName: string}) => {
-        console.log(values)
         updateMutation.mutate(values)
     }
 

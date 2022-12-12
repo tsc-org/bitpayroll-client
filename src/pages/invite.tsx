@@ -8,19 +8,24 @@ import {
   Input,
   Stack,
   Text,
+  useToast,
 } from "@chakra-ui/react";
 import { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
-import axios from "../api/axios";
+
 import endpoints from "../api/endpoints";
 import { storageService } from "../auth/storageService";
 import AuthStatus from "../components/AuthStatus";
 import { DataState } from "../types";
 import * as Yup from "yup";
 import { Field, FieldProps, Form, Formik } from "formik";
+import axios from "../api/axios";
+import customToast from "../components/toasts";
 
 const Invite = () => {
   const token = useParams().inviteCode;
+
+  const toast = useToast()
 
   const [invitation, setInvitation] = useState<DataState<{}>>({
     loading: false,
@@ -55,24 +60,26 @@ const Invite = () => {
       .max(50, "Too Long!")
       .required("Required"),
     walletAddress: Yup.string()
-      .min(32, "Address is too short")
+      .min(16, "Address is too short")
       .required("Required"),
   });
 
   const sendInvite = (values: EmployeeInviteValues) => {
+    console.log(values)
     if (madeRequest.current) return;
     const body = {
         firstName: values.firstName,
         lastName: values.lastName,
         wallet_address: values.walletAddress,
     }
-
+    
     if (token) {
-      madeRequest.current = true;
+      setInvitation(prev => ({...prev, loading: true}))
       storageService.removeData();
       axios
         .put(endpoints.CREATE_EMPLOYEE_WITH_INVITE(token), body)
         .then((res) => {
+          madeRequest.current = true;
           console.log(res);
           setInvitation((prev) => ({
             ...prev,
@@ -83,6 +90,12 @@ const Invite = () => {
         .catch((err) => {
           let errMessage =
             err?.response?.data?.message || "Something went wrong";
+            toast({
+              title: "Unsuccessfull",
+              status: "error",
+              description: errMessage,
+              isClosable: true,
+            })
           setInvitation({
             data: null,
             loading: false,
@@ -101,11 +114,13 @@ const Invite = () => {
   }
 
   if (!invitation.error.state && !invitation.loading && invitation.data) {
-    <AuthStatus isError={false} 
-    text="You've successfully accepted the invite. You can login or create an account to view your organisations" 
-    link="/login"
-    linkText="Login"
-    />
+    return (
+      <AuthStatus isError={false} 
+      text="Invite accepted. You can login or create an account to view your organisations" 
+      link="/login"
+      linkText="Login"
+      />
+    )
   }
 
   return (

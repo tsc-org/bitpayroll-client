@@ -53,9 +53,9 @@ const Activation = () => {
 
   return (
     <AuthStatus 
-      isError={Boolean(!activation.loading && activation.error)}
+      isError={Boolean(!activation.loading && activation.error.state)}
       text={activation.error.state? activation.error.errMessage : "Account Successfuly Activated"}
-      link={Boolean(!activation.loading && activation.error) ? undefined : "/login"}
+      link={Boolean(!activation.loading && activation.error.state) ? undefined : "/login"}
       linkText='Login'
     />
   )

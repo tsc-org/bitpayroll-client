@@ -205,7 +205,7 @@ const SendPayment = () => {
           </div>
 
           {/* Payment Form  */}
-          <Flex p={{base:"mainPageGapXsm", md: "mainPageGapX"}} gap="mainPageGapX" flexDirection={{base: "column", lg: "row"}}
+          <Flex p={{base:"mainPageGapXsm", md: "mainPageGapX"}} gap="mainPageGapX" flexDirection={{base: "column", lg: "row"}} justifyContent="space-between"
             className={`${styles.payment_section} ${!selectList.open ? styles.payment_section_visible : styles.payment_section_hidden }`}  
           >
             <Formik

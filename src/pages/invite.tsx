@@ -65,7 +65,6 @@ const Invite = () => {
   });
 
   const sendInvite = (values: EmployeeInviteValues) => {
-    console.log(values)
     if (madeRequest.current) return;
     const body = {
         firstName: values.firstName,
@@ -80,7 +79,6 @@ const Invite = () => {
         .put(endpoints.CREATE_EMPLOYEE_WITH_INVITE(token), body)
         .then((res) => {
           madeRequest.current = true;
-          console.log(res);
           setInvitation((prev) => ({
             ...prev,
             data: res.data,

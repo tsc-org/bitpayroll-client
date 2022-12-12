@@ -128,7 +128,6 @@ const SendPayment = () => {
       employees: selectedEmployees,
       amount: values.amount
     }
-    console.log(body)
     // axios.post(endpoints.SEND_PAYMENT(auth.userId), body)
     // .then(res => customToast({isSuccess: true}))
     // .catch(err => customToast({isSuccess: false, desc: err?.response?.data?.message || "Please try again later"}))

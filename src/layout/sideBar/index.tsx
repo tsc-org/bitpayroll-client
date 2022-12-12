@@ -12,7 +12,6 @@ import walletIcon from "../../assets/icons/walletIcon.svg"
 import bitcoinIcon from "../../assets/icons/bitcoinIcon.svg"
 import rcodeIcon from "../../assets/icons/123Icon.svg"
 import changeCircleIcon from "../../assets/icons/changeCircleIcon.svg"
-import { storageService } from '../../auth/storageService'
 import useAuth from '../../hooks/useAuth'
 // import editIcon from "../../assets/icons/editIcon.svg"
 

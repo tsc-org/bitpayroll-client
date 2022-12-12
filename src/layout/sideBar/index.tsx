@@ -13,6 +13,10 @@ import bitcoinIcon from "../../assets/icons/bitcoinIcon.svg"
 import rcodeIcon from "../../assets/icons/123Icon.svg"
 import changeCircleIcon from "../../assets/icons/changeCircleIcon.svg"
 import useAuth from '../../hooks/useAuth'
+import CustomModal from '../../components/CustomModal'
+import * as Yup from "yup";
+import { Field, FieldProps, Form, Formik } from "formik";
+import EditUser from './EditUser'
 // import editIcon from "../../assets/icons/editIcon.svg"
 
 const links = [
@@ -26,14 +30,31 @@ const links = [
 
 
 const SideBar = () => {
-    const { clearAuth } = useAuth()
+    const { clearAuth, auth } = useAuth()
     const [isSBOpenMobile, setIsSBOpenMobile] = useState(false)
     const toggleSideBar = () => {
         setIsSBOpenMobile(prev => !prev)
     }
 
+    const initialState = {
+        orgName: auth.orgName ?? ""
+    }
+    const [userDetails, setUserDetails] = useState(initialState)
+    const [editModal, setEditModal] = useState({
+        open: false
+    })
+
     const logout = () => {
         clearAuth()
+    }
+
+    const openModalScreen = () => {
+        setEditModal({open: true})
+    }
+    const onCloseModal = () => {
+        setEditModal({
+            open: false,
+        })
     }
 
     return (
@@ -50,13 +71,13 @@ const SideBar = () => {
                     <div className={styles.img_container}></div>
                     <Box mt='4' mb='8'>
                         <Heading fontSize='lg' fontWeight='medium' pb='2'>
-                            Aria Tech
+                            {auth.orgName ?? "N/A"}
                         </Heading>
                         <Text fontWeight='normal' fontSize='sm'>Administrator</Text>
                     </Box>
                     <div className={styles.profile_cta}>
-                        <IconButton size='icon' variant={'profileIcon'} icon={<MdOutlineEdit />} aria-label='edit' />
-                        <IconButton size='icon' variant={'profileIcon'} icon={<IoSettingsOutline />} aria-label='settings' />
+                        <IconButton size='icon' onClick={openModalScreen} variant={'profileIcon'} icon={<MdOutlineEdit />} aria-label='edit' />
+                        {/* <IconButton size='icon' variant={'profileIcon'} icon={<IoSettingsOutline />} aria-label='settings' /> */}
                         <IconButton size='icon' variant={'profileIcon'} icon={<MdOutlineGroupAdd />} aria-label='add' />
                         <IconButton size='icon' onClick={logout} variant={'profileIcon'} icon={<MdLogout />} aria-label='logout' />
                     </div>
@@ -81,6 +102,7 @@ const SideBar = () => {
                     </nav>
                 </div>
             </section>
+            <EditUser close={onCloseModal} open={editModal.open} data={userDetails} />
         </>
     )
 }

@@ -29,7 +29,8 @@ const Button = defineStyleConfig({
             fontSize: 'md',
             px: 6,
             py: 4,
-            width: 'full'
+            width: 'full',
+            maxWidth: "280px",
         },
         "no-size": {
             width: "0px",

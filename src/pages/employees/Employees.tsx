@@ -8,9 +8,6 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
-import { useQuery } from "react-query";
-import axios from "../../api/axios";
-import endpoints from "../../api/endpoints";
 import AddEmployee from "../../components/AddEmployee";
 import SearchBar from "../../components/Searchbar";
 import BaseTable from "../../components/Table/Table";
@@ -82,31 +79,7 @@ const Employees = () => {
     }
     if (!auth.userId) return
     inviteEmployee.mutate(body)
-    // setInviteLoading(true)
-    // axios.post(endpoints.SEND_INVITE(auth.userId), body)
-    //     .then((res) => {
-    //         toast({
-    //         title: "Success",
-    //         description: `Invite sent to ${email} `,
-    //         status: "success",
-    //         duration: 3000,
-    //         isClosable: true,
-    //         });
-    //     })
-    //     .catch(err => {
-    //         const errMessage = err?.response?.data?.message || "Please try again later";
-    //         toast({
-    //             title: "Unable to send invite",
-    //             description: errMessage,
-    //             status: "error",
-    //             duration: 6000,
-    //             isClosable: true,
-    //         });
-    //     }).finally(() => {
-    //         setInviteLoading(false)
-    //     })
-
-    }
+  }
 
   return (
     <>

@@ -56,7 +56,6 @@ const AddEmployee: React.FC<Props> = ({
     
     const addToList = () => {
         let email = inputRef?.current?.value
-        console.log(email)
         if (email) {
             setAddedEmployees(prev => {
                 return [...prev, email]

@@ -29,7 +29,6 @@ const Activation = () => {
       storageService.removeData()
       axios.put(endpoints.ACTIVATE_ACCOUNT(token))
       .then(res => {
-        console.log(res)
         setActivation(prev => ({...prev, data: res.data, loading: false}))
       })
       .catch(err => {
@@ -53,9 +52,9 @@ const Activation = () => {
 
   return (
     <AuthStatus 
-      isError={Boolean(!activation.loading && activation.error)}
+      isError={Boolean(!activation.loading && activation.error.state)}
       text={activation.error.state? activation.error.errMessage : "Account Successfuly Activated"}
-      link={Boolean(!activation.loading && activation.error) ? undefined : "/login"}
+      link={Boolean(!activation.loading && activation.error.state) ? undefined : "/login"}
       linkText='Login'
     />
   )

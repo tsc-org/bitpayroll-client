@@ -37,6 +37,7 @@ interface PasswordVisType {
 
 const SignUp = () => {
   const [data, setData] = useState<Data>({
+    orgName: "",
     email: "",
     password: "",
     confirmPassword: "",
@@ -77,10 +78,11 @@ const SignUp = () => {
       accountType === AccountType.EMP
         ? endpoints.REGISTER_EMPLOYEE()
         : endpoints.REGISTER_ORG();
-    const body = {
-      email: data.email,
-      password: data.password,
-    };
+
+    const {orgName, email, password} = data
+    const body = accountType === AccountType.EMP
+      ? {email, password}
+      : {email, password, orgName}
     setLoading(true);
     axios
       .post(query, body)
@@ -210,9 +212,20 @@ const SignUp = () => {
             <div className={styles.page_two}>
               <form onSubmit={handleSubmit}>
                 <Stack spacing={6} mb="100px">
+                  {accountType === AccountType.ORG && <Input
+                    name="orgName"
+                    placeholder={`Enter ${accountType.toLowerCase()} name`}
+                    value={data.name}
+                    onChange={handleChange}
+                    size="lg"
+                    border="0.5px solid"
+                    borderColor="grey.100"
+                    fontSize="sm"
+                    required
+                  />}
                   <Input
                     name="email"
-                    placeholder={`Enter ${accountType} email`}
+                    placeholder={`Enter ${accountType.toLowerCase()} email`}
                     value={data.email}
                     onChange={handleChange}
                     size="lg"

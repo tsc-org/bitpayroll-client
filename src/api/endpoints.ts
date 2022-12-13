@@ -16,6 +16,7 @@ const SEND_INVITE = (id: string) => `/org/invite-employee/${id}`
 const SEND_PAYMENT = (id: string) => `/org/send-payment/${id}`
 
 const CREATE_EMPLOYEE_WITH_INVITE = (inviteCode: string) => `/emp/update-details/${inviteCode}`
+const UPDATE_PROFILE = (id: string) => `/org/org-update-profile/${id}`
 
 
 
@@ -33,4 +34,5 @@ export default {
     SEND_INVITE,
     CREATE_EMPLOYEE_WITH_INVITE,
     SEND_PAYMENT,
+    UPDATE_PROFILE,
 }

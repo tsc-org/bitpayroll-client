@@ -139,7 +139,6 @@ const SendPayment = () => {
       employees: selectedEmployees,
       amount: values.amount
     }
-    console.log(body)
     // axios.post(endpoints.SEND_PAYMENT(auth.userId), body)
     // .then(res => customToast({isSuccess: true}))
     // .catch(err => customToast({isSuccess: false, desc: err?.response?.data?.message || "Please try again later"}))
@@ -216,7 +215,7 @@ const SendPayment = () => {
           </div>
 
           {/* Payment Form  */}
-          <Flex p={{base:"mainPageGapXsm", md: "mainPageGapX"}} gap="mainPageGapX" flexDirection={{base: "column", lg: "row"}}
+          <Flex p={{base:"mainPageGapXsm", md: "mainPageGapX"}} gap="mainPageGapX" flexDirection={{base: "column", lg: "row"}} justifyContent="space-between"
             className={`${styles.payment_section} ${!selectList.open ? styles.payment_section_visible : styles.payment_section_hidden }`}  
           >
             <Formik

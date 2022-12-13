@@ -38,7 +38,10 @@ $side-bar-width: 289px;
     width: $side-bar-width;
     height: 100%;
     background-color: white;
-    z-index: var(--sideBarMobile-zIndex);;
+    z-index: var(--sideBarMobile-zIndex);
+    overflow: auto;
+
+
     & header, .org_info {
         text-align: center;
         margin: 0 auto;

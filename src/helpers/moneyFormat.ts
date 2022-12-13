@@ -1,8 +1,8 @@
-export const moneyValueFormat = (num: string, sign: string) => {
+export const moneyValueFormat = (num: string | number, sign= "$") => {
     if (num === null || num === "undefined") {
       return "";
     }
-    const numInt = parseInt(num);
+    const numInt = typeof(num) === "string" ? parseInt(num) : num;
     if (numInt === 0 && sign) {
       return `${sign}0`;
     }

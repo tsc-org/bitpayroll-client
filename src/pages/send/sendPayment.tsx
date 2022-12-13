@@ -26,6 +26,8 @@ import axios from "../../api/axios";
 import endpoints from "../../api/endpoints";
 import useAuth from "../../hooks/useAuth";
 import customToast from "../../components/toasts";
+import useUSDTOBTC from "../../hooks/useUSDTOBTC";
+import { moneyValueFormat } from "../../helpers/moneyFormat";
 
 interface OrgState {
   loading: boolean;
@@ -58,6 +60,8 @@ const SendPayment = () => {
   const [checkedIds, setCheckedIds] = useState([] as number[])
 
   const {employees} = useEmployees()
+
+  const {price, singlePrice} = useUSDTOBTC()
 
   const {auth} = useAuth()
 
@@ -112,6 +116,13 @@ const SendPayment = () => {
       error = 'Description is required'
     }
     return error
+  }
+
+  const moneyValueInput = () => {
+    let usdVal = moneyValueFormat(calculatedAmount.current)
+    let btcVal = singlePrice ? (calculatedAmount.current/singlePrice) : null
+    let format = btcVal ? `${usdVal} ≈ ${btcVal} BTC` : usdVal
+    return format
   }
 
   const onSendPayment = (values: SubmitValues) :void => {
@@ -218,7 +229,7 @@ const SendPayment = () => {
                   <Field name="amount" validate={validateAmount}>
                     {(props: FieldProps) => (
                       <FormControl isInvalid={false}>
-                        <Input {...props.field} value={calculatedAmount.current} disabled placeholder='Enter amount to send' type="number" />
+                        <Input {...props.field} value={moneyValueInput()} disabled placeholder='Enter amount to send' type="text" />
                         <FormErrorMessage>{`${props.form.errors?.amount}`}</FormErrorMessage>
                       </FormControl>
                     )}

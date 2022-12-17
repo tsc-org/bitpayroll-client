@@ -5,6 +5,7 @@ import RequireAuth from "./auth/RequireAuth";
 import Activation from "./pages/Activation";
 import Dashboard from "./pages/dashboard";
 import Employees from "./pages/employees/Employees";
+import SingleEmployee from "./pages/employees/SingleEmployee";
 import Home from "./pages/home";
 import Invite from "./pages/invite";
 import NotFound from "./pages/notFound";
@@ -31,6 +32,7 @@ const BaseRoutes = () => {
             <Route path="/send" element={<SendPayment />} />
             <Route path="/wallet" element={<Wallet />} />
             <Route path="/employees" element={<Employees />} />
+            <Route path="/employeeDetails/:id" element={<SingleEmployee />} />
 
             <Route path="*" element={<NotFound />} />
           </Route>

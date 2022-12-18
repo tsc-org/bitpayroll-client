@@ -62,29 +62,29 @@ const SingleEmployee = () => {
           p={10} >
           <Box display={{ md: "flex" }}
           >
-            <Box bg="#16697A" p={5} borderRadius="50%" >
+            <Box bg="#16697A"  borderRadius="50%" width={"210px"} height={"210px"}>
               <Text fontSize="9xl" color="white" textAlign={"center"}> SA</Text>
             </Box>
 
             <Stack marginLeft={7} mt={7}>
-              <Text fontSize="2xl" fontWeight={"bold"}>Samson Adetunji</Text>
-              <Text fontSize="2xl">Wallet address: 123456789011</Text>
-              <Text fontSize="2xl">Email address: samueladeji@gmail.com</Text>
+              <Text fontSize="28px" fontWeight={"500px"} color ="#232323">Samson Adetunji</Text>
+              <Text fontSize="22px"  fontWeight={"500px"} color={"rgba(75, 75, 75, 1)"}>Wallet address: 123456789011</Text>
+              <Text fontSize="22px"  fontWeight={"500px"} color={"rgba(75, 75, 75, 1)"}>Email address: samueladeji@gmail.com</Text>
             </Stack>
 
           </Box>
 
-          <Box display={{ md: "flex" }} mt={2} mb={2} justifyContent={"space-between"}>
+          <Box display={{ md: "flex" }} mt={10}  justifyContent={"space-between"}>
             <Stack>
-              <Text fontSize="1xl">First name: Samson</Text>
-              <Text fontSize="1xl">Email address: samueladeji@gmail.com</Text>
+              <Text fontSize="1xl" mt={.5}>First name: Samson</Text>
+              <Text fontSize="1xl" mt={.5}>Email address: samueladeji@gmail.com</Text>
             </Stack>
             <Stack>
               <Text fontSize="1xl">Last name: Adetunji</Text>
-              <Text fontSize="1xl">Email address: samueladeji@gmail.com</Text>
+              <Text fontSize="1xl">Join date: 24th July 2022</Text>
             </Stack>
           </Box>
-          <Text fontSize="1xl">Last transaction</Text>
+          <Text fontSize="1xl" mt={4}>Last transaction</Text>
 
 
         </Container>

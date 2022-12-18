@@ -32,7 +32,7 @@ const BaseRoutes = () => {
             <Route path="/send" element={<SendPayment />} />
             <Route path="/wallet" element={<Wallet />} />
             <Route path="/employees" element={<Employees />} />
-            <Route path="/employeeDetails/:id" element={<SingleEmployee />} />
+            <Route path="/employees/:id" element={<SingleEmployee />} />
 
             <Route path="*" element={<NotFound />} />
           </Route>

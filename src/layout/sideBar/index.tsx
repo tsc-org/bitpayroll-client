@@ -24,8 +24,8 @@ const links = [
     { title: 'Registered Employee', to: '/employees', icon: groupAddIcon },
     { title: 'Wallet', to: '/wallet', icon: walletIcon },
     { title: 'Send Payment', to: '/send', icon: bitcoinIcon },
-    { title: 'Generate R-Code', to: '/generate', icon: rcodeIcon },
-    { title: 'Set Payday Circles', to: '/payday-circles', icon: changeCircleIcon },
+    // { title: 'Generate R-Code', to: '/generate', icon: rcodeIcon },
+    // { title: 'Set Payday Circles', to: '/payday-circles', icon: changeCircleIcon },
 ]
 
 

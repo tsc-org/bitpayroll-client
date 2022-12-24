@@ -72,8 +72,13 @@ const Button = defineStyleConfig({
         outlined:{
             color: "##2e2e2e",
             bgColor: "transparent",
-            border: '0.5px solid'
-
+            border: '0.5px solid',
+            _hover: {
+                bgColor: "#222",
+                border: "none",
+                color: "white"
+                // boxShadow: "0px 0px 8px 0px #444"
+            }
         },
         "page-switch-active": {
             fontSize: "12px",

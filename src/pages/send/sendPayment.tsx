@@ -28,6 +28,7 @@ import useAuth from "../../hooks/useAuth";
 import customToast from "../../components/toasts";
 import useUSDTOBTC from "../../hooks/useUSDTOBTC";
 import { moneyValueFormat } from "../../helpers/moneyFormat";
+import { AnimatePresence, motion } from "framer-motion";
 
 interface OrgState {
   loading: boolean;
@@ -208,11 +209,13 @@ const SendPayment = () => {
           </Flex>
 
           {/* Employees horizontal list */}
-          <div className={`${styles.view_employees_box} ${checkedIds.length ? styles.view_employees_box_visible : styles.view_employees_box_hidden }`}>
-            {checkedIds.map((idx) => (
-              <EmployeeProfileBox key={idx} employeeIdx={idx} data={employees.isSuccess ? employees.data : []} />
-            ))}
-          </div>
+          <AnimatePresence>
+            {checkedIds.length && <motion.div initial={{opacity: 0, y: 40}} animate={{opacity: checkedIds.length ? 1 : 0, y:0, transition: {duration: 0.6} }} exit={{opacity: 0, y: 40, transition: {duration: 0.6}}} className={`${styles.view_employees_box}`}>
+              {checkedIds.map((idx) => (
+                <EmployeeProfileBox key={idx} employeeIdx={idx} data={employees.isSuccess ? employees.data : []} />
+              ))}
+            </motion.div>}
+          </AnimatePresence>
 
           {/* Payment Form  */}
           <Flex p={{base:"mainPageGapXsm", md: "mainPageGapX"}} gap="mainPageGapX" flexDirection={{base: "column", lg: "row"}} justifyContent="space-between"
@@ -292,9 +295,14 @@ export const EmployeeProfileBox = ({employeeIdx, data}: {employeeIdx: number, da
     }
   }
   return (
-    <Center flex={"0 0 75px"} h="75px" bgColor="grey.150" borderRadius="100%" >
-      <Text fontWeight={700} fontSize={{base: "16px", md: "28px"}} >{fnInitial} {lnInitial}</Text>
-    </Center>
+    <AnimatePresence>
+      <Center as={motion.div} initial={{opacity: 0, x: 400}} animate={{opacity: 1, x:0, transition: {duration: 0.7, type: "spring",damping: 16,stiffness: 100} }} 
+        exit={{opacity: 0, y: 40, transition: {duration: 0.6}}} 
+        flex={"0 0 75px"} h="75px" bgColor="grey.150" borderRadius="100%" 
+      >
+        <Text fontWeight={700} fontSize={{base: "16px", md: "28px"}} >{fnInitial} {lnInitial}</Text>
+      </Center>
+    </AnimatePresence>
   )
 }
 

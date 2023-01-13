@@ -36,6 +36,10 @@ const SideBar = () => {
         setIsSBOpenMobile(prev => !prev)
     }
 
+    const closeToggle = () => {
+        setIsSBOpenMobile(false)
+    }
+
     const initialState = {
         orgName: auth.orgName ?? ""
     }
@@ -89,7 +93,7 @@ const SideBar = () => {
                             {links.map((link, idx) => (
                                 <li key={idx}>
                                     <NavLink to={link.to}
-                                        className={({ isActive }) => isActive ? styles.activeLink : styles.inActive}
+                                        className={({ isActive }) => isActive ? styles.activeLink : styles.inActive} onClick ={closeToggle}
                                     >
                                         <div>
                                             <img src={link.icon} alt={link.title} />

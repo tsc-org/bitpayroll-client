@@ -11,6 +11,7 @@ import React, { useState } from "react";
 import AddEmployee from "../../components/AddEmployee";
 import SearchBar from "../../components/Searchbar";
 import BaseTable from "../../components/Table/Table";
+import NumberOfEmployees from "../../components/NumberOfEmployees";
 import useAuth from "../../hooks/useAuth";
 import useEmployees from "../../hooks/useEmployees";
 import useSearch from "../../hooks/useSearch";
@@ -66,12 +67,6 @@ const Employees = () => {
     setAddEmployee({open: false})
   }
 
-  const numberOfEmployees = () => {
-    if (employees.isLoading) return <Spinner size="xs" />;
-    if (employees.isSuccess) return `(${employees.data.length})`;
-    return "n/a";
-  };
-
   const onSendInvite = ({email, salary}: {email: string, salary: number}) => {
     let body = {
       email,
@@ -110,7 +105,14 @@ const Employees = () => {
           flex="1 1 100%"
           p={0}
         >
-          <Box p="mainPageGapX" >Registered Employees {numberOfEmployees()}</Box>
+          <Box p="mainPageGapX" >
+            <Text>
+              Registered Employees
+            </Text>
+            <span>
+              (<NumberOfEmployees employees={employees} />)
+            </span>
+          </Box>
           <BaseTable title="Showing all entries" tableStructure={tableStructure} tableData={employees.isSuccess ? employees.data : []} loading={employees.isLoading}  />
           <AddEmployee isOpen={addEmployee.open} handleClose={closeAddEmployee} handleSubmit={onSendInvite} inviteLoading={inviteEmployee.isLoading} />
         </Container>

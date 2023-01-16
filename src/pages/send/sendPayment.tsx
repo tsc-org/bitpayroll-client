@@ -7,28 +7,23 @@ import {
   FormControl,
   FormErrorMessage,
   Input,
-  Select,
   Stack,
   Text,
 } from "@chakra-ui/react";
 import Header from "../../layout/header/Header";
 import MainPage from "../../layout/mainPage/MainPage";
 import styles from "./sendPayment.module.scss";
-// import pebblesBanner from "../../assets/images/pebbles-h-svg.svg"
 import CheckBoxList from "../../components/CheckBoxList/CheckBoxList";
 import React, { useEffect, useRef, useState } from "react";
 import { IoMdArrowDropdown } from "react-icons/io";
-import { randomColor } from "../../helpers/randomColor";
-import { Field, FieldInputProps, FieldProps, Form, Formik, FormikFormProps } from "formik";
+import { Field, FieldProps, Form, Formik } from "formik";
 import { Employee } from "../../types";
 import useEmployees from "../../hooks/useEmployees";
-import axios from "../../api/axios";
-import endpoints from "../../api/endpoints";
 import useAuth from "../../hooks/useAuth";
-import customToast from "../../components/toasts";
 import useUSDTOBTC from "../../hooks/useUSDTOBTC";
 import { moneyValueFormat } from "../../helpers/moneyFormat";
 import { AnimatePresence, motion } from "framer-motion";
+import NumberOfEmployees from "../../components/NumberOfEmployees";
 
 interface OrgState {
   loading: boolean;
@@ -59,6 +54,8 @@ const SendPayment = () => {
     open: false,
   })
   const [checkedIds, setCheckedIds] = useState([] as number[])
+
+  const [calculatedAmount, setCalculatedAmount] = useState(0)
 
   const {employees} = useEmployees()
 
@@ -95,7 +92,6 @@ const SendPayment = () => {
   }
 
   // FORM
-  const calculatedAmount = useRef(0)
   const paymentDescRef = useRef("")
   const initialValues: SubmitValues = {
     amount: 0,
@@ -120,8 +116,8 @@ const SendPayment = () => {
   }
 
   const moneyValueInput = () => {
-    let usdVal = moneyValueFormat(calculatedAmount.current)
-    let btcVal = singlePrice ? (calculatedAmount.current/singlePrice) : null
+    let usdVal = moneyValueFormat(calculatedAmount)
+    let btcVal = (singlePrice && calculatedAmount) ? (calculatedAmount/singlePrice) : null
     let format = btcVal ? `${usdVal} ≈ ${btcVal} BTC` : usdVal
     return format
   }
@@ -146,18 +142,19 @@ const SendPayment = () => {
   }
 
   useEffect(() => {
-    const sum = checkedIds.reduce((a,b) => {
-      const amount = (idx: number) => {
-        let data = employees.isSuccess ? employees.data[idx] : null
-        if (data) {
-          if (data?.salary) return data.salary
-        }
-        return 0
+    const employeesData = employees.isSuccess ? employees.data : []
+    const amount = (idx: number) => {
+      let _employee = employeesData[idx] || null
+      if (_employee) {
+        if (_employee?.salary) return _employee.salary
       }
+      return 0
+    }
+    const sum = checkedIds.reduce((a,b) => {
       return (a + amount(b))
     }, 0)
 
-    calculatedAmount.current = sum
+    setCalculatedAmount(sum)
   
   }, [checkedIds])
   
@@ -179,9 +176,9 @@ const SendPayment = () => {
             <Text fontWeight={500} fontSize={{ base: "14px", md: "18px" }}>
               Total number of registered employee
             </Text>
-            <Text fontWeight={700} fontSize={{ base: "20px", md: "28px" }}>
-              32
-            </Text>
+            <Box fontWeight={700} fontSize={{ base: "20px", md: "28px" }}>
+              <NumberOfEmployees employees={employees} />
+            </Box>
           </Stack>
         </section>
         <Container
@@ -271,6 +268,8 @@ const SendPayment = () => {
               </Button>
             </div>
           </Flex>
+
+          {/* Select employees checkbox table */}
           <Box p={{base:"mainPageGapXsm", md: "mainPageGapX"}}
             className={`${styles.select_container} ${selectList.open ? styles.select_container_visible : styles.select_container_hidden }`} 
           >

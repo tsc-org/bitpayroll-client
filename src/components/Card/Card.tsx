@@ -7,13 +7,15 @@ interface Props {
     bgColor?: string;
     icon?: any;
     title?: string;
-    value?: string;
+    value?: any;
     actionText?: string;
     action?: (x: any) => void;
     loading?: boolean;
 }
 
 const Card: React.FC<Props> = ({imgSrc, bgColor, icon, title, value, action, actionText, loading}) => {
+
+ 
   return (
     <Box height="full" borderRadius="5px" position="relative" bgColor={bgColor || "white"} >
       {imgSrc && <Image src={imgSrc} boxSize="100%" alt='card background' position={"absolute"} top={0} left={0} objectFit="cover" />}

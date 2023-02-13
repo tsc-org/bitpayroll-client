@@ -7,7 +7,7 @@ interface Props {
     bgColor?: string;
     icon?: any;
     title?: string;
-    value?: any;
+    value?: string;
     actionText?: string;
     action?: (x: any) => void;
     loading?: boolean;

@@ -15,3 +15,5 @@ export interface Employee {
     salary: number | null;
     organisation: string;
 }
+
+

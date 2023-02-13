@@ -20,7 +20,7 @@ interface walletBalanceRespone {
 
 const Dashboard = ({wallet, idx}: {wallet: WalletType, idx: number}) => {
   const { employees } = useEmployees();
-  const noOfEmployees = employees.data?.length || 0;
+  const noOfEmployees = String(employees.data?.length || 0);
 
   const fetcher = async() :Promise<walletBalanceRespone> => {
     return axios.get(endpoints.GET_WALLET_BALANCE(wallet.address)).then(res => res.data.data)
@@ -41,7 +41,7 @@ const walletBalance = useQuery(`walletBalance_${idx}`, fetcher)
             <Card icon={GroupEmployeeIcon} title='Registered employees' value={noOfEmployees} actionText='View all' />
           </GridItem>
           <GridItem>
-            <Card imgSrc={pebbleBg} icon={BitcoinIcon} bgColor="grey.200" title='Total amount disbursed' value='200' actionText='View transactions' />
+            <Card imgSrc={pebbleBg} icon={BitcoinIcon} bgColor="grey.200" title='Total amount disbursed' value= '200' actionText='View transactions' />
           </GridItem>
         </Grid>
       </MainPage>

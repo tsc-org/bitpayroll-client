@@ -62,7 +62,7 @@ const Home = () => {
                     </Text> */}
                     <ButtonGroup mx="auto" as={motion.div} variants={siblingText} gap='4' mt={5}>
                         <Link to="/sign-up">
-                            <Button minW={{base: "100px", md: "150px"}} fontSize={{base: "12px", md: "16px"}}>Create Account</Button>
+                            <Button minW={{ base: "100px", md: "150px"}} fontSize={{base: "12px", md: "16px"}}>Create Account</Button>
                         </Link>
                         <Link to="/login">
                             <Button minW={{base: "100px", md: "150px"}} fontSize={{base: "12px", md: "16px"}} variant='outlined'>Login</Button>

@@ -15,3 +15,7 @@ export interface Employee {
     salary: number | null;
     organisation: string;
 }
+
+export interface WalletType {
+    address: string;
+}

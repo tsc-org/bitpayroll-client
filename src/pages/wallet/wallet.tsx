@@ -16,10 +16,9 @@ import CheckCircle from "../../assets/icons/check-circle.svg";
 import WalletCard from "./walletCard";
 import { useQuery } from "react-query";
 import { WalletIcon } from "../../chakra/custom-chakra-icons";
+import { WalletType } from "../../types";
 
-export interface WalletType {
-    address: string;
-}
+
 
 const Wallet = () => {
 //   const [orgData, setOrgData] = useState({

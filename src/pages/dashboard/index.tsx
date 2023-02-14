@@ -7,9 +7,10 @@ import { BitcoinIcon, GroupEmployeeIcon, WalletIcon } from '../../chakra/custom-
 import useEmployees from '../../hooks/useEmployees'
 import { btcFormat } from '../../helpers/btcFormat';
 import { useQuery } from 'react-query';
-import { WalletType } from '../wallet/wallet'
+import { WalletType } from '../../types'
 import axios from 'axios';
 import endpoints from '../../api/endpoints';
+import useWallet from '../../hooks/useWallet'
 
 
 
@@ -18,16 +19,14 @@ interface walletBalanceRespone {
 }
 
 
-const Dashboard = ({wallet, idx}: {wallet: WalletType, idx: number}) => {
+const Dashboard = () => {
   const { employees } = useEmployees();
   const noOfEmployees = String(employees.data?.length || 0);
 
-  const fetcher = async() :Promise<walletBalanceRespone> => {
-    return axios.get(endpoints.GET_WALLET_BALANCE(wallet.address)).then(res => res.data.data)
-}
+  const {wallet} = useWallet()
+  const walletBalance = String(btcFormat("0"))
 
-const walletBalance = useQuery(`walletBalance_${idx}`, fetcher)
-
+  
 
   return (
     <>
@@ -35,7 +34,7 @@ const walletBalance = useQuery(`walletBalance_${idx}`, fetcher)
       <MainPage>
         <Grid templateColumns={['repeat(2, 1fr)', null, null, 'repeat(3, 1fr)']} gap={{ base: "mainPageGapYsm", md: "mainPageGapY" }}>
           <GridItem colSpan={[2, null, null, 1]}>
-            <Card imgSrc={pebbleBg} icon={WalletIcon} bgColor="grey.200" title='Your wallet' value={btcFormat(walletBalance.data?.confirmed_balance)}actionText='Add funds' />
+            <Card imgSrc={pebbleBg} icon={WalletIcon} bgColor="grey.200" title='Your wallet' value={walletBalance}actionText='Add funds' />
           </GridItem>
           <GridItem>
             <Card icon={GroupEmployeeIcon} title='Registered employees' value={noOfEmployees} actionText='View all' />

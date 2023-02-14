@@ -16,4 +16,6 @@ export interface Employee {
     organisation: string;
 }
 
-
+export interface WalletType {
+    address: string;
+}

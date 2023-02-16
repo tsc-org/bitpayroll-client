@@ -9,7 +9,7 @@ interface HeaderProps {
 const Header: React.FC<HeaderProps> = ({header, children}) => {
   return (
     <section className={styles.header_container}>
-      <div>
+      <div className={styles.header_main_content} >
         {header? header : null}
         {children}
       </div>

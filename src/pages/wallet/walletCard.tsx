@@ -7,7 +7,9 @@ import endpoints from '../../api/endpoints';
 import { useQuery } from 'react-query';
 import { WalletType } from './wallet';
 import { btcFormat } from '../../helpers/btcFormat';
-import { WalletIcon } from '../../chakra/custom-chakra-icons';
+import { WalletIcon, WalletIconTwo } from '../../chakra/custom-chakra-icons';
+import { Box, Button, Flex } from '@chakra-ui/react';
+import { useSearchParams } from 'react-router-dom';
 
 interface walletBalanceRespone {
     network: string,
@@ -17,24 +19,36 @@ interface walletBalanceRespone {
 }
 
 const WalletCard = ({wallet, idx}: {wallet: WalletType, idx: number}) => {
-    
-    const fetcher = async() :Promise<walletBalanceRespone> => {
-        return axios.get(endpoints.GET_WALLET_BALANCE(wallet.address)).then(res => res.data.data)
-    }
+  const [searchParams, setSearchParams] = useSearchParams()
+  
+  const fetcher = async() :Promise<walletBalanceRespone> => {
+    return axios.get(endpoints.GET_WALLET_BALANCE(wallet.address)).then(res => res.data.data)
+  }
 
-    const walletBalance = useQuery(`walletBalance_${idx}`, fetcher)
-
+  const walletBalance = useQuery(`walletBalance_${idx}`, fetcher)
 
   return (
-    <Card
-        imgSrc={pebbleBg}
-        icon={WalletIcon}
-        bgColor="grey.200"
-        title="Your wallet"
-        value={btcFormat(walletBalance.data?.confirmed_balance)}
-        actionText="Add funds"
-        loading={walletBalance.isLoading}
-    />
+    <Box borderRadius="sm" border="2px solid grey.200" p="mainPageGapYsm">
+      <Flex>
+        <WalletIconTwo />
+        <Button
+          variant="primary"
+          size="sm"
+          onClick={() => setSearchParams({"addFunds": idx})}
+        >
+          + Add funds
+        </Button>
+      </Flex>
+    </Box>
+    // <Card
+    //     imgSrc={pebbleBg}
+    //     icon={WalletIcon}
+    //     bgColor="grey.200"
+    //     title="Your wallet"
+    //     value={btcFormat(walletBalance.data?.confirmed_balance)}
+    //     actionText="Add funds"
+    //     loading={walletBalance.isLoading}
+    // />
   )
 }
 

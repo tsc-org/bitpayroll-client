@@ -8,7 +8,7 @@ import { useQuery } from 'react-query';
 import { WalletType } from './wallet';
 import { btcFormat } from '../../helpers/btcFormat';
 import { WalletIcon, WalletIconTwo } from '../../chakra/custom-chakra-icons';
-import { Box, Button, Flex } from '@chakra-ui/react';
+import { Box, Button, Flex, Stack, Text } from '@chakra-ui/react';
 import { useSearchParams } from 'react-router-dom';
 
 interface walletBalanceRespone {
@@ -28,16 +28,27 @@ const WalletCard = ({wallet, idx}: {wallet: WalletType, idx: number}) => {
   const walletBalance = useQuery(`walletBalance_${idx}`, fetcher)
 
   return (
-    <Box borderRadius="sm" border="2px solid grey.200" p="mainPageGapYsm">
-      <Flex>
-        <WalletIconTwo />
+    <Box minW="250px" borderRadius="5px" border="1px solid" borderColor="gray.400" p="mainPageGapYsm">
+      <Flex justifyContent="space-between" gap="2" w="full">
+        <WalletIconTwo boxSize={{base: "28px", md: "36px", lg: "56px"}} />
         <Button
+          // ml="20%"
           variant="primary"
-          size="sm"
-          onClick={() => setSearchParams({"addFunds": idx})}
+          size="xs"
+          borderRadius="4px"
+          onClick={() => setSearchParams({"addFunds": `${idx}`})}
         >
           + Add funds
         </Button>
+      </Flex>
+      <Flex direction="column" mt="3" color="grey.400">
+        <Text fontSize={{base: "16px", md: "20px"}} fontWeight="700">Wallet {idx}</Text>
+        <Box display="inline-flex" gap={3}>
+          <Text>Total Amount -</Text>
+          <Text fontWeight="600">
+            {btcFormat(walletBalance.data?.confirmed_balance)}
+          </Text>
+        </Box>
       </Flex>
     </Box>
     // <Card

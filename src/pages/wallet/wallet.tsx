@@ -72,6 +72,10 @@ const Wallet = () => {
       .then((res) => res.data);
   };
 
+  const mockWalletdData: WalletType[] = [
+    {address: "bc1rttgvbj71672saghjhkjkladusy6"}
+  ]
+
   const {
     data: walletsData,
     error: walletsError,
@@ -285,8 +289,8 @@ const Wallet = () => {
                 actionText="Add funds"
                 loading={walletsLoading}
               />
-            ) : walletsData && walletsData.length ? (
-              walletsData.map((wallet, idx: number) => (
+            ) : mockWalletdData && mockWalletdData.length ? (
+              mockWalletdData.map((wallet, idx: number) => (
                 <WalletCard wallet={wallet} idx={idx} key={idx} />
               ))
             ) : (
